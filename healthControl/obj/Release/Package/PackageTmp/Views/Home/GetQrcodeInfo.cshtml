@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>加载中...</title>
+</head>
+<body>
+    <div>
+        
+    </div>
+    <script type="text/javascript">
+        var url = window.location.href;
+        var targetUrl = '';
+        if (url.indexOf("zhaojingold.cn") > -1) {
+            targetUrl = 'http://www.nvshen45.cn/Home/ShowScanInfo?scene_id=';
+        } else if (url.indexOf('necowood.cn') > -1) {
+            targetUrl = 'http://www.bdtbyb.cn/Home/ShowScanInfo?scene_id=';
+        } else {
+            targetUrl = 'http://www.nvshen45.cn/Home/ShowScanInfo?scene_id=';
+        }
+        window.location.href = targetUrl + '@ViewData["scene_id"]'.replace(/\+/g, '%2B');
+    </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+    <h1 class="mui-title">用户信息</h1>
+</header>
+<div class="mui-content">
+    <ul class="mui-table-view device-project-info">
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: updateName}">
+            <span></span>姓名
+            <span class="mui-navigate-right" data-bind="text: userInfo().name == '' ? '未填写' : userInfo().name"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectAge}">
+            <span></span>年龄
+            <span class="mui-navigate-right" data-bind="text: userInfo().age == '' ? '未填写' : (userInfo().age + ' 岁')"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectSex}">
+            <span></span>性别
+            <span class="mui-navigate-right" data-bind="text: userInfo().sex == '' ? '未填写' : userInfo().sex"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: updateTelephone}">
+            <span></span>电话号码
+            <span class="mui-navigate-right" data-bind="text: userInfo().telephone == '' ? '未填写' : userInfo().telephone"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectPeriod}">
+            <span></span>安全期
+            <span class="mui-navigate-right" data-bind="text: userInfo().period == '' ? '未填写' : userInfo().period"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectHeight}">
+            <span></span>身高
+            <span class="mui-navigate-right" data-bind="text: userInfo().height == 0 ? '未填写' : (userInfo().height + ' cm')"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectWeight}">
+            <span></span>体重
+            <span class="mui-navigate-right" data-bind="text: userInfo().weight == 0 ? '未填写' : (userInfo().weight + ' kg')"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectWaistline}">
+            <span></span>腰围
+            <span class="mui-navigate-right" data-bind="text: userInfo().waistline == 0 ? '未填写' : (userInfo().waistline + ' cm')"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom" data-bind="event: {tap: selectWorkingType}">
+            <span></span>工作强度
+            <span class="mui-navigate-right" data-bind="text: userInfo().workingType == 0 ? '未填写' : userInfo().workingType"></span>
+        </li>
+    </ul>
+</div>
+<script>
+    var viewModel = {
+        userInfo: ko.observable({})
+    };
+
+    //修改用户名
+    viewModel.updateName = function () {
+        var btnArray = ['取消', '确定'];
+        var name = viewModel.userInfo().name;
+        var data = viewModel.userInfo();
+        mui.prompt('请输入您的姓名：', name, '更新姓名', btnArray, function (e) {
+            if (e.index == 1) {
+                data.name = e.value;
+                viewModel.updateUserInfo(viewModel.deviceId, 'name', e.value, function () {
+                    viewModel.userInfo(data);
+                    mui.toast('修改成功');
+                });
+            } else {
+            }
+        });
+    }
+
+    //选择年龄
+    viewModel.selectAge = function () {
+        var ageList = [];
+        for (var i = 1; i <= 100; i++) {
+            ageList.push({
+                value: i,
+                text: i + '岁'
+            });
+        }
+        var picker = new mui.PopPicker();
+        picker.setData(ageList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.age = selectItems[0].value;
+            viewModel.updateUserInfo(viewModel.deviceId, 'age', userInfo.age, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //选择性别
+    viewModel.selectSex = function () {
+        var sexList = [
+            {
+                value: 1,
+                text: '男'
+            },
+            {
+                value: 2,
+                text: '女'
+            }
+        ];
+        var picker = new mui.PopPicker();
+        picker.setData(sexList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.sex = selectItems[0].text;
+            viewModel.updateUserInfo(viewModel.deviceId, 'sex', userInfo.sex, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });        
+            picker.dispose();
+        });
+    }
+
+    //修改电话号码
+    viewModel.updateTelephone = function () {
+        var btnArray = ['取消', '确定'];
+        var telephone = viewModel.userInfo().telephone;
+        var data = viewModel.userInfo();
+        mui.prompt('请输入您的电话号码：', telephone, '更新号码', btnArray, function (e) {
+            if (e.index == 1) {
+                data.telephone = e.value;
+                viewModel.updateUserInfo(viewModel.deviceId, 'telephone', e.value, function () {
+                    viewModel.userInfo(data);
+                    mui.toast('修改成功');
+                });
+            } else {
+            }
+        });
+    }
+
+    //选择安全期
+    viewModel.selectPeriod = function () {
+        var periodList = [
+            {
+                value: 1,
+                text: '正常'
+            },
+            {
+                value: 2,
+                text: '孕期'
+            },
+            {
+                value: 3,
+                text: '哺乳期'
+            }
+        ];
+        var picker = new mui.PopPicker();
+        picker.setData(periodList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.period = selectItems[0].text;
+            viewModel.updateUserInfo(viewModel.deviceId, 'period', userInfo.period, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //选择身高
+    viewModel.selectHeight = function () {
+        var heightList = [];
+        for (var i = 120; i <= 200; i = i + 0.5) {
+            heightList.push({
+                value: i,
+                text: i + 'cm'
+            });
+        }
+        var picker = new mui.PopPicker();
+        picker.setData(heightList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.height = selectItems[0].value;
+            viewModel.updateUserInfo(viewModel.deviceId, 'height', userInfo.height, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //选择体重
+    viewModel.selectWeight = function () {
+        var heightList = [];
+        for (var i = 30; i <= 100; i = i + 0.5) {
+            heightList.push({
+                value: i,
+                text: i + 'kg'
+            });
+        }
+        var picker = new mui.PopPicker();
+        picker.setData(heightList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.weight = selectItems[0].value;
+            viewModel.updateUserInfo(viewModel.deviceId, 'weight', userInfo.weight, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //选择腰围
+    viewModel.selectWaistline = function () {
+        var lineList = [73.5, 77, 80, 83.5, 87, 90, 93.5, 97, 100];
+        var waistlineList = [];
+        for (var i = 0; i < lineList.length; i++) {
+            waistlineList.push({
+                value: lineList[i],
+                text: lineList[i] + 'cm'
+            });
+        }
+        var picker = new mui.PopPicker();
+        picker.setData(waistlineList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.waistline = selectItems[0].value;
+            viewModel.updateUserInfo(viewModel.deviceId, 'waistline', userInfo.waistline, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //选择工作强度
+    viewModel.selectWorkingType = function () {
+        var workingTypeList = [
+            {
+                value: 1,
+                text: '长时间坐在办公室、教室里、很少运动或是完全没有运动的人。'
+            },
+            {
+                value: 2,
+                text: '偶尔会运动或散步、逛街、到郊外踏青，每周大约少量运动1~3次的人。'
+            },
+            {
+                value: 3,
+                text: '有持续运动的习惯，或是会上健身房，每周大约运动3~5次的人。'
+            },
+            {
+                value: 4,
+                text: '热爱运动，每周运动6~7次，或是工作量相当大的人。'
+            },
+            {
+                value: 5,
+                text: '工作或生活作息需要大量劳动，相当消耗能量的人。'
+            }
+        ];
+        var picker = new mui.PopPicker();
+        picker.setData(workingTypeList);
+        picker.show(function (selectItems) {
+            var userInfo = viewModel.userInfo();
+            userInfo.workingType = selectItems[0].text;
+            viewModel.updateUserInfo(viewModel.deviceId, 'workingType', userInfo.workingType, function () {
+                viewModel.userInfo(userInfo);
+                mui.toast('修改成功');
+            });
+            picker.dispose();
+        });
+    }
+
+    //更新用户信息
+    viewModel.updateUserInfo = function (deviceId, fieldName, fieldValue, callback) {
+        var param = {};
+        param.deviceId = deviceId;
+        param.fieldName = fieldName;
+        param.fieldValue = fieldValue;
+
+        loadingIn('正在更新...');
+        Compost('/Home/updateUserInfo', JSON.stringify(param), function (data) {
+            if (typeof callback == 'function')
+                callback();
+            loadingOut();
+        });
+    }
+
+    //获取用户信息
+    viewModel.getUserInfo = function () {
+        var params = {};
+        params.deviceId = localStorage.deviceId;
+        Comget('/Home/getUserInfo', params, function (data) {
+            viewModel.userInfo(data.backData);
+            loadingOut();
+        });
+    }
+
+    viewModel.load = function () {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            loadingIn();
+            viewModel.getUserInfo();
+        }
+        else {
+            mui.toast('设备未连接，请先连接上设备');
+        }
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

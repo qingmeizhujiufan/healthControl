@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>支付信息</title>
+    <link href="~/Content/public/css/mui.min.css" rel="stylesheet">
+    <link href="~/Content/public/css/iconfont.css" rel="stylesheet">
+    <link href="~/Content/public/css/public.css" rel="stylesheet">
+    <link href="~/Content/public/css/detail.css" rel="stylesheet">
+    <script type="text/javascript" src="~/Content/public/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="~/Content/public/js/jquery.easing.1.3.min.js"></script>
+    <script type="text/javascript" src="~/Content/public/js/public.js"></script>
+    <style type="text/css">
+        .ok {
+            font-size: 12em;
+            background-color: #50d2c2;
+            color: #fff;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header class="light">
+        <div class="left">
+            <a href="javascript:history.go(-1);">
+                <span class="mui-icon mui-icon-back"></span>
+            </a>
+        </div>
+        <div class="heading">支付信息</div>
+        <div class="right">
+            <a href="javascript:void(0);"><span class="mui-icon mui-icon-more"></span></a>
+            <div class="sub-menu">
+                <ul>
+                    <li>
+                        <a href="#"><span class="iconfont icon-xiaodian1"></span>进入实体店</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="iconfont icon-552cd5dc30f83"></span>分享</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+    <div class="content">
+        <div style="margin-top:5em;text-align:center;">
+            <i class="mui-icon mui-icon-checkmarkempty ok"></i>
+            <p style="margin-top:1em;font-size:2em;">支付成功！</p>
+        </div>
+        <div style="margin-top:5em;">
+            <ul>
+                <li style="float:left;width:50%;text-align:center;">
+                    <a href="@Url.Action("Order","Home")" style="display:inline-block;padding: 0.5em 3em;border:1px solid #50d2c2;border-radius:5px;">查看订单</a>
+                </li>
+                <li style="float:left;width:50%;text-align:center;">
+                    <a href="@Url.Action("","Home")" style="display:inline-block;padding: 0.5em 3em;border:1px solid #50d2c2;border-radius:5px;">继续逛逛</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+时间:2018/2/6 9:38:07   错误信息:AddScoreResult == insert into dbo.hc_life_score (open_id, smoke_score, drink_score, life_score, exercise_score, sleep_score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '0,1,1,0,2,1,0', '5,1,0', '0,0,2,1,1,1', '1,3,2,2,2,2,2', '1,1,1')

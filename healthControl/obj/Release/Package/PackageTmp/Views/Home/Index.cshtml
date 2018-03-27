@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>领红包</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <style>
+        html, body {
+            background-color: #FFFAEA;
+        }
+    </style>
+</head>
+<body>
+    <div style="position: absolute;left: 0; bottom: 3vh; right: 0; width: 100%;text-align:center;font-size: 3vw;color: #999;">请于24小时内领取红包，超时退还！</div>
+    <script type="text/javascript">
+        alert('@ViewData["msg"].ToString()');
+        window.opener = null;
+        // JS重写当前页面
+        window.open("", "_self", "");
+        // 顺理成章的关闭当前被重写的窗口
+        window.close();
+    </script>
+</body>
+</html>

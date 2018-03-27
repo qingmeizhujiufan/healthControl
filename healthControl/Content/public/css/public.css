@@ -1,0 +1,1462 @@
+/*公共样式   begin*/
+
+body,
+html {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100%;
+}
+
+#content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.html_content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.mui-content {
+    background-color: #F5F5F5;
+}
+
+.mui-bar .mui-title {
+    right: 80px;
+    left: 80px;
+}
+
+.mui-table-view-cell:after {
+    height: 0;
+}
+
+.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell:after {
+    background-color: #E0E0E0;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+form ~ .mui-content.mui-scroll-wrapper {
+    margin-top: 83px;
+}
+
+.mui-table-view.device-project-info .mui-table-view-cell input {
+    height: 48px;
+    margin-bottom: 0;
+    padding: 10px 0;
+    border: none;
+    text-align: right;
+}
+
+textarea {
+    margin-top: 10px;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.width100p {
+    width: 100% !important;
+}
+
+.marginTop0 {
+    margin-top: 0 !important;
+}
+
+.marginTop10 {
+    margin-top: 10px !important;
+}
+
+.marginBottom0 {
+    margin-bottom: 0 !important;
+}
+
+.marginBottom60 {
+    margin-bottom: 49px !important;
+}
+
+.content-fixed {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.text-green {
+    color: #3ac17e !important;
+}
+
+.text-blue {
+    color: #1ea5f5 !important;
+}
+
+.text-orange {
+    color: #fe821e !important;
+}
+
+.text-red {
+    color: #FF5745 !important;
+}
+
+.text-gray {
+    color: #A6A6A6 !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+
+/*公共样式   end*/
+
+.mui-bar-nav {
+    background-color: #fff;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
+    .mui-bar-nav.hair-line-bottom {
+        position: fixed;
+        left: 0;
+    }
+
+        .mui-bar-nav.hair-line-bottom:after {
+            left: 0;
+        }
+
+    .mui-bar-nav .mui-icon-arrowleft {
+        padding: 10px 40px 5px 6px !important;
+        font-size: 28px;
+    }
+
+    .mui-bar-nav .mui-pull-left,
+    .mui-bar-nav .mui-pull-right {
+        margin-top: 11px;
+    }
+
+    .mui-bar-nav.light .mui-pull-right {
+        color: #FE8524;
+    }
+
+    .mui-bar-nav.dark {
+        background-color: #2EC7C9 !important;
+    }
+
+        .mui-bar-nav.dark:after {
+            height: 0;
+        }
+
+        .mui-bar-nav.dark .mui-icon-arrowleft,
+        .mui-bar-nav.dark .mui-pull-right {
+            color: #fff !important;
+        }
+
+        .mui-bar-nav.dark .mui-title {
+            color: #fff !important;
+        }
+
+    .mui-bar-nav.white {
+        background-color: #fff !important;
+    }
+
+    .mui-bar-nav .mui-icon {
+        margin-top: 0;
+        color: #999 !important;
+        font-size: 24px !important;
+    }
+
+    .mui-bar-nav.white .mui-pull-left,
+    .mui-bar-nav.white .mui-pull-right {
+        color: #666;
+        font-size: 15px;
+    }
+
+    .mui-bar-nav.light {
+        background-color: #F9F9F9 !important;
+    }
+
+        .mui-bar-nav.light .mui-icon,
+        .mui-bar-nav.light .mui-btn {
+            color: #FE8524 !important;
+        }
+
+    .mui-bar-nav.green .mui-icon,
+    .mui-bar-nav.green .mui-btn {
+        color: #3ac17e !important;
+    }
+
+    .mui-bar-nav.light .mui-title {
+        color: #222 !important;
+    }
+
+    .mui-bar-nav.green .mui-pull-right {
+        color: #3ac17e;
+    }
+
+    .mui-bar-nav .mui-btn-link {
+        margin-top: 0 !important;
+        font-size: 14px;
+    }
+
+.mui-btn-blue,
+.mui-btn-primary,
+input[type=submit] {
+    color: #fff;
+    border: 1px solid #2786ff !important;
+    background-color: #2786ff !important;
+}
+
+.mui-bar-nav.light ~ .mui-dtpicker .mui-btn-blue,
+.mui-bar-nav.light ~ .mui-poppicker .mui-btn-blue,
+.mui-bar-nav.light ~ .mui-poppicker .mui-btn-primary,
+.mui-bar-nav.light ~ .mui-poppicker input[type=submit] {
+    color: #fff;
+    border: 1px solid #FE8524 !important;
+    background-color: #FE8524 !important;
+}
+
+.mui-bar-nav.green ~ .mui-dtpicker .mui-btn-blue,
+.mui-bar-nav.green ~ .mui-poppicker .mui-btn-blue,
+.mui-bar-nav.green ~ .mui-poppicker .mui-btn-primary,
+.mui-bar-nav.green ~ .mui-poppicker input[type=submit] {
+    color: #fff;
+    border: 1px solid #3ac17e !important;
+    background-color: #3ac17e !important;
+}
+
+.mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
+    top: 0px !important;
+}
+
+.mui-table-view-cell > a:not(.mui-btn) {
+    font-size: 16px;
+    background-color: #fff;
+}
+
+.mui-table-view-cell.mui-collapse:after {
+    height: 0;
+}
+
+.mui-table-view-cell.mui-collapse.mui-active > a:not(.mui-btn):before,
+.mui-pane ~ .mui-table-view .mui-table-view-cell.mui-collapse > a:not(.mui-btn):before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    background-color: #E0E0E0;
+}
+
+
+/*搜索框样式   begin*/
+
+.mui-input-row.mui-search {
+    padding: 5px 10px;
+    background-color: #e7e7e7;
+}
+
+
+    /*.mui-input-row.mui-search:after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 1px;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+	-webkit-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+	background-color: #E0E0E0;
+}*/
+
+    .mui-input-row.mui-search input {
+        height: 29px;
+        margin-bottom: 0;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-right: 25px !important;
+        background-color: #fff;
+        font-size: 14px !important;
+    }
+
+.mui-search .mui-placeholder {
+    top: 3px !important;
+    font-size: 14px !important;
+}
+
+    .mui-search .mui-placeholder .mui-icon {
+        font-size: 24px !important;
+    }
+
+    .mui-search .mui-placeholder > span:first-child {
+        color: #ccc;
+        vertical-align: 0;
+        font-size: 16px !important;
+        font-weight: 600;
+    }
+
+    .mui-search .mui-placeholder > span:last-child {
+        margin-left: 5px;
+        color: #999;
+        font-size: 13px;
+    }
+
+.mui-search.mui-active:before {
+    left: 15px !important;
+    margin-top: -11px !important;
+}
+
+.mui-input-row.mui-search .mui-icon-clear {
+    top: 10px !important;
+    right: 8px !important;
+}
+
+.white ~ .mui-content .mui-input-row.mui-search {
+    background-color: #fff;
+}
+
+    .white ~ .mui-content .mui-input-row.mui-search input {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+    }
+
+
+/*搜索框样式   end*/
+
+
+/*定制选项卡样式   begin*/
+
+.mui-content form ~ .mui-segmented-control.mui-segmented-control-inverted ~ .mui-scroll-wrapper {
+    margin-top: 123px;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted {
+    position: relative;
+    display: block;
+}
+
+    .mui-segmented-control.mui-segmented-control-inverted:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background-color: #E0E0E0;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+        -webkit-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+    }
+
+.mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after {
+    content: '';
+    display: table;
+    position: absolute;
+    left: 15%;
+    bottom: 0;
+    width: 70%;
+    height: 3px;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+.light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted {
+    background-color: #fff;
+}
+
+    .light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+        color: #FE8524 !important;
+    }
+
+    .light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+        position: relative;
+        line-height: 40px !important;
+        color: #797979 !important;
+        border: none !important;
+    }
+
+        .light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 5px;
+            width: 1px;
+            height: 30px;
+            background-color: #EAEAEA;
+        }
+
+        .light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item:last-child:before {
+            width: 0;
+        }
+
+        .light ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after {
+            background-color: #FE8524;
+        }
+
+.green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted {
+    background-color: #fff;
+    overflow: visible;
+}
+
+    .green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+        color: #3ac17e !important;
+    }
+
+    .green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+        position: relative;
+        line-height: 40px !important;
+        color: #797979 !important;
+        border: none !important;
+        font-size: 16px;
+        overflow: visible;
+    }
+
+        .green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 5px;
+            width: 1px;
+            height: 30px;
+            background-color: #E0E0E0;
+            -webkit-transform: scaleX(.5);
+            transform: scaleX(.5);
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+        }
+
+        .green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item:last-child:before {
+            width: 0;
+        }
+
+        .green ~ .mui-content .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active:after {
+            content: '';
+            position: absolute;
+            left: 15%;
+            display: table;
+            width: 70%;
+            background-color: #3ac17e;
+        }
+
+
+/*定制选项卡样式   end*/
+
+
+/*列表样式   begin*/
+
+
+.mui-table-view:before,
+.mui-table-view:after {
+    height: 0;
+    background-color: #E0E0E0 !important;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+.mui-table-view-cell {
+    background-color: #fff;
+}
+
+.mui-table-view.mui-table-collapse:before,
+.mui-table-view.mui-table-collapse:after {
+    height: 0;
+}
+
+.mui-table-view-cell.mui-collapse {
+    margin-bottom: 0;
+}
+
+.mui-table-view.mui-table-collapse {
+    box-shadow: none;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-title {
+    width: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #222;
+    font-size: 16px;
+    line-height: 35px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-content {
+    width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #797979;
+    font-size: 14px;
+    line-height: 30px;
+    min-height: 30px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-top {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    color: #797979;
+    font-size: 14px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-navigate-right .mui-table-view-cell-top {
+    right: 40px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-center {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    color: #797979;
+    font-size: 14px;
+    -webkit-tranform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.mui-table-view .mui-table-view-cell .mui-navigate-right .mui-table-view-cell-center {
+    right: 40px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-date {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    color: #797979;
+    font-size: 14px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-navigate-right .mui-table-view-cell-date {
+    right: 40px;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-gray,
+.mui-table-view .mui-table-view-cell .mui-badge-green,
+.mui-table-view .mui-table-view-cell .mui-badge-orange,
+.mui-table-view .mui-table-view-cell .mui-badge-purple,
+.mui-table-view .mui-table-view-cell .mui-badge-blue,
+.mui-table-view .mui-table-view-cell .mui-badge-red {
+    top: 17px;
+    padding: 0px 10px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 12px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-gray {
+    background-color: #999;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-green {
+    background-color: #3ac17e;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-orange {
+    background-color: #ff9600;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-purple {
+    background-color: #cd73e1;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-blue {
+    background-color: #1ea5f5;
+}
+
+.mui-table-view .mui-table-view-cell .mui-badge-red {
+    background-color: #ff645f;
+}
+
+.mui-table-view .mui-table-view-cell .mui-table-view-cell-content .mui-badge-green {
+    padding: 2px 10px;
+    font-size: 14px;
+}
+
+
+/*列表样式   end*/
+
+
+/*设备列表   begin*/
+
+.device-list {
+    padding: 0 15px 15px;
+}
+
+    .device-list .device-detail {
+        position: relative;
+        padding-top: 15px;
+        background-color: #fff;
+        border-radius: 4px;
+    }
+
+        .device-list .device-detail:after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 100px;
+            top: 50%;
+            width: 1px;
+            height: 76px;
+            background-color: #E4E4E4;
+            transform: translateY(-50%);
+        }
+
+    .device-list .header {
+        margin-right: 100px;
+        white-space: nowrap;
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .device-list .show-detail-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        padding: 2px 11px;
+        border-radius: 30px;
+        font-size: 14px;
+        color: #FE821E;
+        border: 1px solid #FE821E;
+    }
+
+.green ~ .mui-content .device-list .show-detail-btn {
+    border: 1px solid #3ac17e;
+    color: #3ac17e;
+}
+
+.device-list .approach-time {
+    display: block;
+    margin: 7px 0 0;
+    color: #FF9090;
+    font-size: 13px;
+    line-height: 20px;
+    white-space: normal;
+}
+
+    .device-list .approach-time span:first-child {
+        margin-right: 5px;
+    }
+
+.device-list .device-dec {
+    margin-left: 5px;
+    padding: 0 2px;
+    color: #999;
+    font-size: 15px;
+}
+
+.device-list .text-border {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 0 5px;
+    border-left: 4px solid #2E7DFF;
+    color: #2E7DFF;
+    font-size: 14px;
+}
+
+
+/*设备列表   end*/
+
+
+/*设备详情   begin*/
+
+#device_details {
+    padding: 20px 20px 60px;
+}
+
+    #device_details .device-details-info {
+        position: relative;
+        margin-bottom: 10px;
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        border: 1px solid #E6E6E6;
+        overflow: hidden;
+    }
+
+        #device_details .device-details-info:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 40px solid transparent;
+            border-top-color: #FF7A21;
+            border-bottom-width: 0;
+            border-left-width: 0;
+        }
+
+        #device_details .device-details-info:after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 7px;
+            color: #fff;
+        }
+
+        #device_details .device-details-info .mui-row {
+            margin-bottom: 10px;
+            line-height: 25px;
+        }
+
+        #device_details .device-details-info .line {
+            position: absolute;
+            top: 50px;
+            left: -5px;
+            width: 80px;
+            height: 2px;
+            z-index: 2;
+            background-color: #FF7A21;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+
+
+/*设备详情   end*/
+
+
+/*图标集   begin*/
+
+.icon-device {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    background: transparent url(../img/ic_device_info.png) no-repeat;
+    background-size: 24px;
+    vertical-align: -6px;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/*项目名称*/
+
+.icon-device-project {
+    background-position: 0px -116px;
+}
+
+
+/*合同名称*/
+
+.icon-device-contract {
+    background-position: 0px 0px;
+}
+
+
+/*设备名称*/
+
+.icon-device-equipment {
+    background-position: 0px -58px;
+}
+
+
+/*设备管理编号*/
+
+.icon-device-equipmentNO {
+    background-position: 0px -29px;
+}
+
+
+/*设备型号*/
+
+.icon-device-equipmentType {
+    background-position: 0px -87px;
+}
+
+
+/*供方名称*/
+
+.icon-device-providerName {
+    background-position: 0px -232px;
+}
+
+
+/*项目联系人*/
+
+.icon-device-projectLink {
+    background-position: 0 -203px;
+}
+
+
+/*联系电话*/
+
+.icon-device-linkPhone {
+    background-position: 0 -261px;
+}
+
+
+/*检查类型*/
+
+.icon-device-checkType {
+    background-position: 0 -145px;
+}
+
+
+/*进场日期*/
+
+.icon-device-inDate {
+    background-position: 0 -174px;
+}
+
+
+/*作业单位*/
+
+.icon-device-workEmployer {
+    background-position: 0 -290px;
+}
+
+
+/*作业方案*/
+
+.icon-device-workSolution {
+    background-position: 0 -319px;
+}
+
+
+/*项目地址*/
+
+.icon-project-location {
+    position: absolute;
+    right: -6px;
+    top: 12px;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: url(../img/location.png) no-repeat;
+    background-size: 21px;
+}
+
+
+/*图标集   end*/
+
+
+/*上传弹出层文字样式   begin*/
+
+.mui-bar-nav.light ~ .mui-content .mui-popover .mui-table-view:first-child li a,
+.mui-bar-nav.light ~ .mui-content .mui-popover .mui-table-view li a[href="#picture"] {
+    color: #FE811D;
+}
+
+
+/*上传弹出层文字样式   begin*/
+
+
+/*设备项目信息   begin*/
+
+.mui-table-view.device-project-info {
+    box-shadow: none;
+}
+
+    .mui-table-view.device-project-info .mui-table-view-cell {
+        margin-bottom: 0;
+        padding: 13px 15px;
+        color: #000;
+        font-size: 14px;
+    }
+
+        .mui-table-view.device-project-info .mui-table-view-cell > span:last-child {
+            position: relative;
+            float: right;
+            display: inline-block;
+            width: 55%;
+            text-align: right;
+            color: #666;
+            line-height: 24px;
+            vertical-align: sub;
+        }
+
+        .mui-table-view.device-project-info .mui-table-view-cell > span.mui-navigate-right:last-child {
+            position: relative;
+            padding-right: 20px;
+            min-height: 24px;
+        }
+
+            .mui-table-view.device-project-info .mui-table-view-cell > span.mui-navigate-right:last-child:after {
+                right: -6px;
+                margin-top: 1px;
+                font-size: 22px;
+                color: #CECECE;
+            }
+
+.mui-list-unstyled.device-base-info {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 8px 15px;
+    background-color: #fff;
+    font-size: 15px;
+}
+
+    .mui-list-unstyled.device-base-info > li {
+        line-height: 30px;
+        color: #797979;
+    }
+
+    .mui-list-unstyled.device-base-info li:before,
+    .mui-list-unstyled.device-base-info li:after {
+        content: '';
+        display: block;
+        clear: both;
+        line-height: 1;
+    }
+
+    .mui-list-unstyled.device-base-info > li > span:first-child {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .mui-list-unstyled.device-base-info > li > span:last-child {
+        overflow: hidden;
+        display: block;
+        color: #4A4A4A;
+        min-height: 30px;
+    }
+
+
+/*设备项目信息   end*/
+
+
+/*身份信息   begin*/
+
+.top-header {
+    margin-top: 5px;
+    padding: 0 15px;
+    background-color: #fff;
+}
+
+    .top-header:before,
+    .top-header:after {
+        content: '';
+        display: table;
+        clear: both;
+        line-height: 1;
+    }
+
+    .top-header .top-content {
+        border-bottom: 1px solid #e4e4e4;
+    }
+
+        .top-header .top-content > div:first-child {
+            color: #000;
+            line-height: 45px;
+            font-size: 16px;
+        }
+
+        .top-header .top-content > div:last-child {
+            float: right;
+            margin-top: -45px;
+            color: #797979;
+            line-height: 45px;
+            font-size: 14px;
+        }
+
+
+/*身份信息   end*/
+
+
+/*页面底部按钮   begin*/
+
+.footer-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FE8524;
+    text-align: center;
+    color: #fff;
+    transition: all .25s ease-in-out;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.green ~ .footer-btn {
+    background-color: #3ac17e;
+}
+
+    .green ~ .footer-btn:active {
+        background-color: #32c59f;
+    }
+
+.white ~ .footer-btn {
+    background-color: #2786ff;
+    color: #fff;
+}
+
+    .white ~ .footer-btn:active {
+        background-color: #1886e8;
+    }
+
+.footer-btn:active {
+    background-color: #fb9a4c;
+}
+
+.green ~ .mui-content .footer-btn:active {
+    background-color: #2ac79f;
+}
+
+.footer-btn-group {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 49px;
+    line-height: 50px;
+    background-color: #FBFBFB;
+    z-index: 10;
+}
+
+    .footer-btn-group:after {
+        content: '';
+        display: block;
+        top: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #E0E0E0;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+    .footer-btn-group .left-btn {
+        position: relative;
+        float: left;
+        width: 50%;
+        text-align: center;
+        color: #797979;
+    }
+
+        .footer-btn-group .left-btn:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 1px;
+            height: 30px;
+            background-color: #E3E3E3;
+            -webkit-transform: scaleX(.5);
+            transform: scaleX(.5);
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+        }
+
+    .footer-btn-group .right-btn {
+        float: right;
+        width: 50%;
+        text-align: center;
+        color: #FE821E;
+    }
+
+.white ~ .footer-btn-group .right-btn {
+    color: #2271E2;
+}
+
+.green ~ .footer-btn-group .right-btn {
+    color: #3ac17e;
+}
+
+
+/*页面底部按钮   end*/
+
+.mui-pane {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 4px solid #3ac17e;
+}
+
+    .mui-pane .mui-pane-title {
+        display: inline-block;
+        margin: 0 15px;
+        padding: 0 10px;
+        color: #fff;
+        background-color: #3ac17e;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 25px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+.light ~ .mui-content .mui-pane,
+.light ~ .content-fixed .mui-pane {
+    border-bottom: 3px solid #FE821E;
+}
+
+    .light ~ .mui-content .mui-pane .mui-pane-title,
+    .light ~ .content-fixed .mui-pane .mui-pane-title {
+        background-color: #FE821E;
+    }
+
+.mui-table-view-cell.mui-active {
+    background-color: #f2f2f2 !important;
+}
+
+.mui-table-view-cell.mui-collapse .mui-collapse-content {
+    padding: 0 !important;
+}
+
+.fix-location {
+    position: fixed;
+    bottom: 40px;
+    left: 25px;
+    z-index: 1000;
+}
+
+    .fix-location .mui-icon {
+        padding: 10px;
+        /*background-color: #FE8524;*/
+        color: #fff;
+        border-radius: 50%;
+    }
+
+.green ~ .fix-location .mui-icon {
+    background-color: #3ac17e;
+}
+
+.light ~ .fix-location .mui-icon {
+    background-color: #FE8524;
+}
+
+.mui-focusin .footer-btn,
+.mui-focusin .footer-btn-group {
+    z-index: -1;
+}
+
+
+
+
+/**	
+ * 定义页面渲染动画
+ */
+
+.animated {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes flip {
+    from {
+        transform: perspective(400px) translate3d(-50%, 0, 0) rotate3d(0, 1, 0, -360deg);
+        animation-timing-function: linear;
+    }
+
+    25% {
+        transform: perspective(400px) translate3d(-50%, 0, 0) rotate3d(0, 1, 0, -270deg);
+        animation-timing-function: linear;
+    }
+
+    50% {
+        transform: perspective(400px) translate3d(-50%, 0, 0) rotate3d(0, 1, 0, -180deg);
+        animation-timing-function: linear;
+    }
+
+    75% {
+        transform: perspective(400px) translate3d(-50%, 0, 0) rotate3d(0, 1, 0, -90deg);
+        animation-timing-function: linear;
+    }
+
+    to {
+        transform: perspective(400px) translate3d(-50%, 0, 0);
+        animation-timing-function: linear;
+    }
+}
+
+.animated.flip {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    animation-name: flip;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale3d(.3, .3, 1);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+/*四个方向的细线  begin*/
+
+.hair-line-top,
+.hair-line-right,
+.hair-line-bottom,
+.hair-line-left {
+    position: relative;
+}
+
+    .hair-line-top:before,
+    .hair-line-right:after,
+    .hair-line-bottom:after,
+    .hair-line-left:before {
+        content: '';
+        display: block;
+        position: absolute;
+        background-color: #E0E0E0 !important;
+    }
+
+
+    /*上边线，下边线*/
+
+    .hair-line-top:before,
+    .hair-line-bottom:after {
+        width: 100%;
+        height: 1px;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+    }
+
+    .hair-line-top:before {
+        top: 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+    .hair-line-bottom:after {
+        bottom: 0;
+        -webkit-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+    }
+
+
+    /*左边线，右边线*/
+
+    .hair-line-left:before,
+    .hair-line-right:after {
+        width: 1px;
+        height: 100%;
+        -webkit-transform: scaleX(.5);
+        transform: scaleX(.5);
+    }
+
+    .hair-line-left:before {
+        left: 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+    .hair-line-right:after {
+        right: 0;
+        -webkit-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+    }
+
+
+/*四个方向的细线  end*/
+
+/* 通用底部导航栏样式  begin */
+
+.footer-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 999;
+}
+
+    .footer-nav ul {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: #fefefe;
+        display: -moz-box;
+        display: -webkit-box;
+        display: box;
+        font-size: 12px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+        .footer-nav ul li {
+            min-width: 70px;
+            box-flex: 1;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            flex: 1;
+            text-align: center;
+            color: #999;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+            .footer-nav ul li.active .icon,
+            .footer-nav ul li.active p {
+                color: #3955A2;
+            }
+
+            .footer-nav ul li > a {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
+
+            .footer-nav ul li .icon {
+                font-size: 24px;
+                color: #9B9DB1;
+                padding-top: 8px;
+                height: 30px;
+                line-height: 20px;
+                display: inline-block;
+            }
+
+            .footer-nav ul li p {
+                margin-top: -5px;
+                font-size: 10px;
+                margin-bottom: 0;
+                color: #9B9DB1;
+            }
+
+
+/* 通用底部导航栏样式  end */
+
+
+.mui-card {
+    margin-bottom: 10px;
+}
+
+/*加载缓冲   begin*/
+
+.mui-loading {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, .75);
+    opacity: 1;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    transition: opacity .25s ease-in-out;
+    z-index: 1000000;
+}
+
+    .mui-loading.ball-scale-multiple {
+        background-color: transparent;
+    }
+
+    .mui-loading .loader-inner {
+        position: relative;
+        -webkit-transform: translateY(-20px) translateX(-20px);
+        -ms-transform: translateY(-20px) translateX(-20px);
+        transform: translateY(-20px) translateX(-20px);
+    }
+
+    .mui-loading .ball-clip-rotate-pulse > div {
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border-radius: 100%;
+    }
+
+        .mui-loading .ball-clip-rotate-pulse > div:first-child {
+            background: #cacaca;
+            height: 20px;
+            width: 20px;
+            top: 7px;
+            left: 7px;
+            -webkit-animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+            animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+        }
+
+        .mui-loading .ball-clip-rotate-pulse > div:last-child {
+            position: absolute;
+            border: 2px solid #cacaca;
+            width: 34px;
+            height: 34px;
+            background: transparent;
+            border: 2px solid;
+            border-color: #cacaca transparent #cacaca transparent;
+            -webkit-animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+            animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+        }
+
+@keyframes scale {
+    30% {
+        -webkit-transform: scale(0.3);
+        transform: scale(0.3);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg) scale(1);
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        -webkit-transform: rotate(180deg) scale(0.6);
+        transform: rotate(180deg) scale(0.6);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg) scale(1);
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.backup {
+    position: fixed;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 100000;
+}
+
+.mui-loading.fade {
+    opacity: 0;
+}
+
+.mui-loading.mui-loading-text {
+    padding: 25px 15px 15px 15px;
+}
+
+.mui-loading .mui-spinner {
+    width: 36px;
+    height: 36px;
+}
+
+.mui-loading p {
+    min-width: 56px;
+    max-width: 82px;
+    margin: 10px 0 0 0;
+    color: #fff;
+    text-align: center;
+}
+
+
+/*加载缓冲   end*/

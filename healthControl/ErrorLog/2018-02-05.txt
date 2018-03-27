@@ -1,0 +1,5 @@
+时间:2018/2/5 9:55:40   错误信息:AddScoreResult == insert into dbo.hc_stress_score (open_id, score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1')
+时间:2018/2/5 9:57:10   错误信息:AddScoreResult == insert into dbo.hc_stress_score (open_id, score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1')
+时间:2018/2/5 10:17:49   错误信息:AddScoreResult == insert into dbo.hc_stress_score (open_id, score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1')
+时间:2018/2/5 10:52:24   错误信息:AddScoreResult == insert into dbo.hc_stress_score (open_id, score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '1,1,2')
+时间:2018/2/5 11:00:13   错误信息:AddScoreResult == insert into dbo.hc_stress_score (open_id, score) values ('o3XkNxAh4Sxoby8tLcfj9WNTQPCk', '0,1,3,3,1,2,1,1,2,0,2,3,3,4,2,3,2,2,2,2,1,2,1,1,1,2,2,2,2,2,3,1,2,2,2,1,1,2,2,2,1,3,2,1,2,2,2,0,1,0')

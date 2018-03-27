@@ -1,0 +1,360 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .graph {
+        height: 80vw;
+        padding: 2vw;
+    }
+
+    .bodyIndexList #bodyIndexList-top-chart {
+        height: 200px;
+    }
+
+    .bodyIndexList .card-2 .card-2-body {
+        display: flex;
+        height: 40px;
+    }
+
+        .bodyIndexList .card-2 .card-2-body div {
+            position: relative;
+            padding: 6px;
+            padding-left: 14px;
+            line-height: 28px;
+            flex: 1;
+        }
+
+            .bodyIndexList .card-2 .card-2-body div span:nth-child(1) {
+            }
+
+            .bodyIndexList .card-2 .card-2-body div span:nth-child(2) {
+                color: #06cc88;
+                /*font-size: 16px;*/
+            }
+
+            .bodyIndexList .card-2 .card-2-body div:after {
+                position: absolute;
+                content: "";
+                display: block;
+                right: 0px;
+                top: 10px;
+                border-right: solid 1px #C8C7CC;
+                height: calc(100% - 20px);
+            }
+
+            .bodyIndexList .card-2 .card-2-body div:last-child:after {
+                border-right: solid 1px transparent;
+            }
+
+    .bodyIndexList .card-3 .card-3-body {
+        padding: 10px;
+    }
+
+        .bodyIndexList .card-3 .card-3-body table {
+            border-color: #C8C7CC;
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+            .bodyIndexList .card-3 .card-3-body table .item > div {
+                padding-top: 10px;
+            }
+
+            .bodyIndexList .card-3 .card-3-body table td,
+            .bodyIndexList .card-3 .card-3-body .title {
+                position: relative;
+            }
+
+            .bodyIndexList .card-3 .card-3-body table tr td:nth-child(2) .item {
+                padding-left: 10px;
+            }
+
+            .bodyIndexList .card-3 .card-3-body table .item,
+            .bodyIndexList .card-3 .card-3-body .title {
+                height: 50px;
+                width: 50%;
+            }
+
+                .bodyIndexList .card-3 .card-3-body table .item > div,
+                .bodyIndexList .card-3 .card-3-body .title > div {
+                    float: left;
+                    color: #0099CC;
+                    font-size: 18px;
+                    position: relative;
+                }
+
+                    .bodyIndexList .card-3 .card-3-body .title > div > span,
+                    .bodyIndexList .card-3 .card-3-body table .item > div > span {
+                        position: absolute;
+                        font-size: 12px;
+                        position: absolute;
+                        width: 40px;
+                        bottom: -14px;
+                        left: 2px;
+                    }
+
+                    .bodyIndexList .card-3 .card-3-body table .item > div > span {
+                        bottom: -18px;
+                    }
+
+                .bodyIndexList .card-3 .card-3-body .title > section {
+                    display: flex;
+                    margin: auto;
+                    position: relative;
+                    left: -36px;
+                    width: 75px;
+                }
+
+                    .bodyIndexList .card-3 .card-3-body .title > section span {
+                        font-size: 42px;
+                        display: inline-block;
+                        padding-left: 6px;
+                        padding-top: 8px;
+                    }
+
+                    .bodyIndexList .card-3 .card-3-body .title > section div {
+                        padding-top: 10px;
+                        flex: 1;
+                        margin-left: 4px;
+                        border-bottom: solid 1px #242424;
+                    }
+
+                .bodyIndexList .card-3 .card-3-body table .item > section {
+                    display: flex;
+                    position: absolute;
+                    right: 19%;
+                    bottom: 8px;
+                }
+
+                    .bodyIndexList .card-3 .card-3-body table .item > section div {
+                        flex: 1;
+                        margin-left: 4px;
+                        border-bottom: solid 1px #242424;
+                    }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+    <h1 class="mui-title">身体指标</h1>
+</header>
+<div class="mui-content">
+    <div id="bodyIndexList-top-chart" class="graph"></div>
+    <ul class="mui-table-view device-project-info">
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>心率
+            <span data-bind="text: (data().hrs ? data().hrs : '--') + ' 次/分钟'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>运动步数
+            <span data-bind="text: (data().step ? data().step : '--') + ' 步'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>浅睡时间
+            <span data-bind="text: (data().lslt ? data().lslt : '--') + ' 分钟'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>深睡时间
+            <span data-bind="text: (data().dslt ? data().dslt : '--') + ' 分钟'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>皮肤温度
+            <span data-bind="text: (data().btmp ? data().btmp : '--') + ' °C'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>高血压
+            <span data-bind="text: (data().hbld ? data().hbld : '--') + ' mmHg'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>低血压
+            <span data-bind="text: (data().lbld ? data().lbld : '--') + ' mmHg'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>血氧浓度
+            <span data-bind="text: (data().oxyg ? data().oxyg : '--') + ' %'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>环境温度
+            <span data-bind="text: (data().atmp ? data().atmp : '--') + ' °C'"></span>
+        </li>
+    </ul>
+    @*<ul class="mui-list-unstyled device-base-info" style="margin-top: 10px;">
+            <li>
+                <span>文字结论报告现状:</span>
+                <span data-bind="text: '内容区'"></span>
+            </li>
+        </ul>
+        <ul class="mui-list-unstyled device-base-info" style="margin-top: 10px;">
+            <li>
+                <span>改进建议:</span>
+                <span data-bind="text: '内容区'"></span>
+            </li>
+        </ul>*@
+</div>
+<script>
+    viewModel = {
+        dataList: ko.observableArray([]),
+        data: ko.observable({})
+    };
+    var chartConfig = function (data) {
+        var timeList = [],
+            hbldList = [],
+            lbldList = [];
+        data.map(function (item, index) {
+            timeList.push(item.time);
+            hbldList.push(item.hbld);
+            lbldList.push(item.lbld);
+        });
+        var endPercent = (6 / timeList.length) * 100;
+        return option = {
+            title: {
+                text: '当天血压变化',
+                left: '4px',
+                top: '4px',
+                textStyle: {
+
+                    fontSize: 14,
+                },
+
+            },
+            grid: {
+                left: '70px',
+                right: '40px',
+                top: '44px',
+                bottom: "30px"
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['高血压', '低血压'],
+
+            },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data: timeList
+            }],
+            yAxis: [{
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} mmHg'
+                }
+            }],
+            dataZoom: [//给x轴设置滚动条    
+                           {
+                               start: 0,//默认为0    
+                               end: endPercent,
+                               type: 'slider',
+                               show: true,
+                               xAxisIndex: [0],
+                               handleSize: 0,//滑动条的 左右2个滑动条的大小    
+                               height: 5,//组件高度    
+                               left: 70, //左边的距离    
+                               right: 40,//右边的距离    
+                               bottom: 26,//右边的距离    
+                               handleColor: '#ddd',//h滑动图标的颜色    
+                               handleStyle: {
+                                   borderColor: "#cacaca",
+                                   borderWidth: "1",
+                                   shadowBlur: 2,
+                                   background: "#ddd",
+                                   shadowColor: "#ddd",
+                               },
+                               fillerColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                   //给颜色设置渐变色 前面4个参数，给第一个设置1，第四个设置0 ，就是水平渐变    
+                                   //给第一个设置0，第四个设置1，就是垂直渐变    
+                                   offset: 0,
+                                   color: '#1eb5e5'
+                               }, {
+                                   offset: 1,
+                                   color: '#5ccbb1'
+                               }]),
+                               backgroundColor: '#ddd',//两边未选中的滑动条区域的颜色    
+                               showDataShadow: false,//是否显示数据阴影 默认auto    
+                               showDetail: false,//即拖拽时候是否显示详细数值信息 默认true    
+                               handleIcon: 'M-292,322.2c-3.2,0-6.4-0.6-9.3-1.9c-2.9-1.2-5.4-2.9-7.6-5.1s-3.9-4.8-5.1-7.6c-1.3-3-1.9-6.1-1.9-9.3c0-3.2,0.6-6.4,1.9-9.3c1.2-2.9,2.9-5.4,5.1-7.6s4.8-3.9,7.6-5.1c3-1.3,6.1-1.9,9.3-1.9c3.2,0,6.4,0.6,9.3,1.9c2.9,1.2,5.4,2.9,7.6,5.1s3.9,4.8,5.1,7.6c1.3,3,1.9,6.1,1.9,9.3c0,3.2-0.6,6.4-1.9,9.3c-1.2,2.9-2.9,5.4-5.1,7.6s-4.8,3.9-7.6,5.1C-285.6,321.5-288.8,322.2-292,322.2z',
+                               filterMode: 'filter'
+                           },
+                           //下面这个属性是里面拖到    
+                           {
+                               type: 'inside',
+                               show: true,
+                               xAxisIndex: [0],
+                               start: 0,//默认为1    
+                               end: 50
+                           },
+            ],
+            series: [
+                {
+                    name: '最高血压',
+                    type: 'line',
+                    data: hbldList,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: '最大值' },
+                            { type: 'min', name: '最小值' }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            { type: 'average', name: '平均值' }
+                        ]
+                    }
+                },
+                {
+                    name: '最低血压',
+                    type: 'line',
+                    data: lbldList,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: '最大值' },
+                            { type: 'min', name: '最小值' }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            { type: 'average', name: '平均值' }
+                        ]
+                    }
+                }
+            ]
+        };
+
+    }
+
+    viewModel.queryDeviceInfoList = function (deviceId) {
+        var now = new Date();
+        var params = {};
+        params.deviceId = deviceId;
+        params.date = dateFormate(now.getTime(), '-');
+        Comget('/Home/getDeviceInfoList', params, function (data) {
+            var data = data.backData;
+            if (data.length > 0) {
+                data.map(function (item, index) {
+                    item.btmp = parseFloat(item.btmp) / 10;
+                    item.atmp = parseFloat(item.atmp) / 10;
+                    item.time = item.create_time.substring(11, 16);
+                });
+                console.log('data === ', data);
+                viewModel.data(data[data.length - 1]);
+                viewModel.dataList(data);
+                viewModel.myChart.setOption(chartConfig(data));
+            }
+            loadingOut();
+        });
+    };
+
+    viewModel.load = function (loginContext) {
+        viewModel.myChart = echarts.init(document.getElementById('bodyIndexList-top-chart'), 'macarons');
+        if (localStorage.deviceId) {
+            loadingIn();
+            viewModel.queryDeviceInfoList(localStorage.deviceId);
+            setInterval(function () {
+                viewModel.queryDeviceInfoList(localStorage.deviceId);
+            }, GLOBAL_UPDATE_CYCLE);
+        }      
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

@@ -1,0 +1,198 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .score {
+        line-height: 35px;
+        color: #666;
+        font-size: 14px;
+        background-color: #fff;
+    }
+
+        .score .mui-row:nth-child(n + 2) > div:first-child {
+            padding-left: 15px;
+        }
+
+        .score .mui-row:nth-child(n + 2) > div:nth-child(n+2) {
+            color: #333;
+        }
+
+    .graph {
+        height: 80vw;
+        padding: 2vw;
+    }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="/Home/Index"></a>
+    <h1 class="mui-title">精神及压力测试</h1>
+    <a class="mui-pull-right" href="/Home/StressQuestion">开始测试</a>
+</header>
+<div class="mui-content pressure">
+    <div class="score">
+        <div class="mui-row">
+            <div class="mui-col-sm-4 mui-col-xs-4"></div>
+            <div class="mui-col-sm-4 mui-col-xs-4">实际得分</div>
+            <div class="mui-col-sm-4 mui-col-xs-4">标准区间</div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-sm-4 mui-col-xs-4">压力评分</div>
+            <div class="mui-col-sm-4 mui-col-xs-4" data-bind="text: totalPoint() + ' 分'"></div>
+            <div class="mui-col-sm-4 mui-col-xs-4">43-65 分</div>
+        </div>
+    </div>
+    <div id="chart" class="graph"></div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>压力水平:</span>
+            <span data-bind="text: presureLevel"></span>
+        </li>
+    </ul>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>调节建议:</span>
+            <!--内容区-->
+            <span data-bind="text: suggestion"></span>
+        </li>
+    </ul>
+</div>
+<script>
+    var viewModel = {
+        data: ko.observableArray([]),
+        totalPoint: ko.observable(0),
+        presureLevel: ko.observable(''),
+        suggestion: ko.observable('')
+    };
+
+    var chartConfig = function (data) {
+        var dateList = [],
+            dataList = [];
+        data.map(function (item, index) {
+            dateList.push(item.create_time);
+            var point = 0;
+            item.score.split(',').map(function (sub_item, sub_index) {
+                point += parseInt(sub_item);
+            });
+            dataList.push(point);
+        });
+
+        return {
+            tooltip: {
+                trigger: 'axis'
+            },
+
+            calculable: true,
+            grid: {
+                x: 45,
+                y: 30
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 45,
+                        margin: 10,
+                        textStyle: {
+                            color: "#666",
+                            fontSize: 10
+                        }
+                    },
+                    data: dateList
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} 分'
+                    }
+                }
+            ],
+            series: [
+                {
+                    type: 'line',
+                    data: dataList,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: '最大值' },
+                            { type: 'min', name: '最小值' }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            { type: 'average', name: '平均值' }
+                        ]
+                    }
+                }
+            ]
+        };
+    }
+
+    viewModel.getData = function () {
+        var params = {};
+        params.deviceId = viewModel.deviceId;
+        params.month = new Date().getMonth() + 1;
+        loadingIn();
+        Comget('/Home/GetLatestPresureScoreResult', params, function (data) {
+            var data = strToJson(data.backData);
+            console.log('data == ', data);
+            var len = data.length;
+            var lastestData = data[len - 1].score.split(',');
+            var totalPoint = 0;
+            lastestData.map(function (item, index) {
+                item = parseInt(item)
+                totalPoint += item;
+            });
+
+            viewModel.myChart.setOption(chartConfig(data));
+            viewModel.data(data);
+            viewModel.totalPoint(totalPoint);
+            viewModel.adjustmentSuggestion(totalPoint);
+            loadingOut();
+        });
+    }
+
+    viewModel.adjustmentSuggestion = function (point) {
+        if (point > 93) {
+            viewModel.presureLevel('表示你确实正以极度的压力反应伤害你自己的健康。');
+            viewModel.suggestion('你需要专业心理治疗师给与一些忠告，它可以帮助你削减你对压力的知觉，并帮助你改良生活的品质，找到能令你感受愉悦兴趣的活动，并规律的参与到互动中。');
+        } else if (point >= 82 && point <= 92) {
+            viewModel.presureLevel('你正经历太多的压力，这正在损害你的健康，并令你的人际关系发生问题。');
+            viewModel.suggestion('你的行为会伤害自己，也会影响其他人。因此，对你来说，学会如何减除自己的压力反应是非常必要的。你可能必须花时间做练习，学习控制压力，也可以寻求专业的帮助。');
+        } else if (point >= 71 && point <= 81) {
+            viewModel.presureLevel('你的压力程度中等，可能正开始对健康不利。');
+            viewModel.suggestion('你可以仔细反省自己对压力如何作出反应，并学习在压力出现时，控制自己的肌肉紧张，以消除生理激活反应。好老师对你有帮助，要不然就选择适合你的肌肉松弛录音带。');
+        } else if (point >= 60 && point <= 70) {
+            viewModel.presureLevel('你生活中的兴奋与压力也许是相当适中的。');
+            viewModel.suggestion('偶尔会有一段时间压力太大，但你也许有能力去享受压力，并且很快回到平衡状态，因此对你的健康不会造成威胁。做一些松弛训练仍是有益的。');
+        } else if (point >= 49 && point <= 59) {
+            viewModel.presureLevel('你能够控制你自己的压力反应，你是一个相当放松的人。');
+            viewModel.suggestion('也许你对于所遇到的各种压力，并没有将他们解释为威胁，所以你很容易与人相处，可以毫无惧怕地担任工作，也没有失去信心。');
+        } else if (point >= 38 && point <= 48) {
+            viewModel.presureLevel('你对所遭遇的压力很不易为所动，甚至是不当一回事，好像并没有发生过一样。');
+            viewModel.suggestion('这对你的健康不会有什么负面影响，但你的生活缺乏适度的兴奋，因此趣味也就有限。');
+        } else if (point >= 27 && point <= 37) {
+            viewModel.presureLevel('你的生活可能是相当沉闷的，即使刺激或有趣的事情发生了，你也很少作反应。');
+            viewModel.suggestion('可能你必须参加更多的社会活动或娱乐活动，以增加你的压力激活反应。');
+        } else if (point >= 16 && point <= 26) {
+            viewModel.presureLevel('你在生活中所经历的压力经验不够，或是你没有正确地分析你自己。');
+            viewModel.suggestion('你最好更主动些，在工作、社交、娱乐等活动上多增加些刺激。做松弛训练对你没有什么用，但找一些辅导也许会有帮助。');
+        } else {
+
+        }
+    }
+
+    viewModel.load = function () {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            viewModel.myChart = echarts.init(document.getElementById('chart'), 'macarons');
+            viewModel.getData();
+        } else {
+            mui.toast('设备未连接，请先连接上设备');
+        }
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

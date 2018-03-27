@@ -1,0 +1,407 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .bmi {
+        padding: 0 15px;
+        line-height: 2;
+        font-size: 14px;
+        background-color: #fff;
+    }
+
+    .graph {
+        height: 60vw;
+        padding: 2vw;
+    }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+    <h1 class="mui-title">热量及运动报告</h1>
+    <!--<a class="mui-icon iconfont icon-add mui-pull-right" data-bind="event: {tap: clickItem.bind(null,'device/deviceCheck/deviceCheckAdd/deviceCheckAdd')}"></a>-->
+</header>
+<div class="mui-content heatReport">
+    <div class="bmi">
+        <div class="mui-row">
+            <div class="mui-col-sm-4 mui-col-xs-4"></div>
+            <div class="mui-col-sm-4 mui-col-xs-4">实际值</div>
+            <div class="mui-col-sm-4 mui-col-xs-4">标准值区间</div>
+        </div>
+        <div class="mui-row">
+            <div class="mui-col-sm-4 mui-col-xs-4">BMI指数</div>
+            <div class="mui-col-sm-4 mui-col-xs-4" data-bind="text: BMI().actualValue"></div>
+            <div class="mui-col-sm-4 mui-col-xs-4" data-bind="text: BMI().standardValueInterval"></div>
+        </div>
+    </div>
+    <div id="heatReport-top-chart" class="graph"></div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>BMI结论:</span>
+            <span></span>
+        </li>
+    </ul>
+    <div style="padding: 10px 15px; font-size: 14px; color: #333;">BMI与相关疾病的危险性关联</div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>冠心病（风险）:</span>
+            <span data-bind="text: sickness().sick_1"></span>
+        </li>
+        <li>
+            <span>脑卒中（风险）:</span>
+            <span data-bind="text: sickness().sick_2"></span>
+        </li>
+        <li>
+            <span>缺血性脑卒中（风险）:</span>
+            <span data-bind="text: sickness().sick_3"></span>
+        </li>
+        <li>
+            <span>糖尿病风险:</span>
+            <span data-bind="text: sickness().sick_4"></span>
+        </li>
+        <li>
+            <span>血脂异常:</span>
+            <span data-bind="text: sickness().sick_5"></span>
+        </li>
+        <li>
+            <span>高血压（发病率）:</span>
+            <span data-bind="text: sickness().sick_6"></span>
+        </li>
+    </ul>
+    <div style="padding: 10px 15px; font-size: 14px; color: #333;">热量管理</div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>基础代谢量:</span>
+            <span data-bind="text: heatManagement().basic"></span>
+        </li>
+        <li>
+            <span>工作及生活代谢量:</span>
+            <span data-bind="text: heatManagement().work"></span>
+        </li>
+        <li>
+            <span>每日热量代谢:</span>
+            <span data-bind="text: heatManagement().day"></span>
+        </li>
+        <li>
+            <span>日均热量摄入:</span>
+            <span data-bind="text: heatManagement().dayEnglobe"></span>
+        </li>
+        <li>
+            <span>热量差:</span>
+            <span data-bind="text: heatManagement().diff"></span>
+        </li>
+    </ul>
+    <div id="heatReport-top-chart2" class="graph"></div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>热量与脂肪含量评价：</span>
+            <span data-bind="text: assess"></span>
+        </li>
+    </ul>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>体重控制趋势：</span>
+            <span></span>
+        </li>
+    </ul>
+</div>
+<script>
+    var viewModel = {
+        userInfo: ko.observable({}),
+        BMI: ko.observable({
+            actualValue: '--',
+            standardValueInterval: '--'
+        }),
+        sickness: ko.observable({
+            sick_1: '--',
+            sick_2: '--',
+            sick_3: '--',
+            sick_4: '--',
+            sick_5: '--',
+            sick_6: '--'
+        }),
+        assess: ko.observable(''),
+        heatManagement: ko.observable({
+            basic: '--',
+            work: '--',
+            day: '--',
+            dayEnglobe: '--',
+            diff: '--'
+        })
+    };
+    var chartConfig = function () {
+        return {
+            legend: {
+                data: ['变动曲线']
+            },
+            grid: {
+                left: '60px',
+                right: '25px',
+                bottom: '40px',
+
+            },
+            calculable: true,
+            tooltip: {
+                trigger: 'axis',
+                formatter: "Temperature : <br/>{b}km : {c}°C"
+            },
+            xAxis: [{
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} °C'
+                }
+            }],
+            yAxis: [{
+                type: 'category',
+                axisLine: {
+                    onZero: false
+                },
+                axisLabel: {
+                    formatter: '{value} km'
+                },
+                boundaryGap: false,
+                data: ['0', '10', '20', '30', '40', '50', '60', '70', '80']
+            }],
+            series: [{
+                name: '变动曲线',
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        lineStyle: {
+                            shadowColor: 'rgba(0,0,0,0.4)'
+                        }
+                    }
+                },
+                data: [15, -50, -56.5, -46.5, -22.1, -2.5, -27.7, -55.7, -76.5]
+            }]
+        };
+    }
+    var chartConfig2 = function () {
+        return {
+
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                left: "10px",
+                data: ['代谢量', '摄入量']
+            },
+            calculable: true,
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data: ['0', '6', '9', '12', '15', '18', '21', '24']
+            }],
+            yAxis: [{
+                type: 'value'
+            }],
+            series: [{
+                name: '代谢量',
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: 'default'
+                        }
+                    }
+                },
+                data: [10, 12, 21, 54, 260, 830, 710]
+            },
+                {
+                    name: '摄入量',
+                    type: 'line',
+                    smooth: true,
+                    itemStyle: {
+                        normal: {
+                            areaStyle: {
+                                type: 'default'
+                            }
+                        }
+                    },
+                    data: [30, 182, 434, 791, 390, 30, 10]
+                }
+
+            ]
+        };
+
+    }
+
+    //疾病关联
+    viewModel.getSickness = function (bmi) {
+        var sickness = {
+            sick_1: '--',
+            sick_2: '--',
+            sick_3: '--',
+            sick_4: '--',
+            sick_5: '--',
+            sick_6: '--'
+        };
+        var value = parseFloat(bmi.actualValue);
+        //冠心病
+        if (value < 24) {
+            sickness.sick_1 = '平均值';
+        } else {
+            sickness.sick_1 = 0.154;
+            for (var i = 24; i <= value; i = i + 2) {
+                sickness.sick_1 = parseFloat(0.154 * (1 + sickness.sick_1).toFixed(3));
+            }
+        }
+        sickness.sick_1 = typeof sickness.sick_1 == 'string' ? sickness.sick_1 : (sickness.sick_1 * 100).toFixed(1) + '%';
+        //脑卒中
+        if (value < 24) {
+            sickness.sick_2 = '平均值';
+        } else {
+            sickness.sick_2 = 0.061;
+            for (var i = 24; i <= value; i = i + 2) {
+                sickness.sick_2 = parseFloat(0.061 * (1 + sickness.sick_2).toFixed(3));
+            }
+        }
+        sickness.sick_2 = typeof sickness.sick_2 == 'string' ? sickness.sick_2 : (sickness.sick_2 * 100).toFixed(1) + '%';
+        //缺血性脑卒中
+        if (value < 24) {
+            sickness.sick_3 = '平均值';
+        } else {
+            sickness.sick_3 = 0.188;
+            for (var i = 24; i <= value; i = i + 2) {
+                sickness.sick_3 = parseFloat(0.188 * (1 + sickness.sick_3).toFixed(3));
+            }
+        }
+        sickness.sick_3 = typeof sickness.sick_3 == 'string' ? sickness.sick_3 : (sickness.sick_3 * 100).toFixed(1) + '%';
+        //糖尿病风险
+        if (value < 24) {
+            sickness.sick_4 = '平均值';
+        } else {
+            sickness.sick_4 = 0.114;
+            for (var i = 24; i <= value; i = i + 2) {
+                sickness.sick_4 = parseFloat(0.55 * (1 + sickness.sick_4).toFixed(3));
+            }
+        }
+        sickness.sick_4 = typeof sickness.sick_4 == 'string' ? sickness.sick_4 : (sickness.sick_4 * 100).toFixed(1) + '%';
+        //血脂异常
+        if (value < 24) {
+            sickness.sick_5 = '平均值';
+        } else {
+            sickness.sick_5 = 0.297;
+            for (var i = 24; i <= value; i = i + 2) {
+                sickness.sick_5 = parseFloat(0.61 * (1 + sickness.sick_5).toFixed(3));
+            }
+        }
+        sickness.sick_5 = typeof sickness.sick_5 == 'string' ? sickness.sick_5 : (sickness.sick_5 * 100).toFixed(1) + '%';
+        //高血压
+        if (value < 24) {
+            sickness.sick_6 = '平均值';
+        } else if (value >= 24 && value <= 28) {
+            sickness.sick_6 = '70.3%';
+        } else {
+            sickness.sick_6 = '95.6%';
+        }
+
+        viewModel.sickness(sickness);
+    }
+
+    //热量管理
+    viewModel.getHeatManagement = function (data) {
+        var heat = {
+            basic: 0,
+            work: 0,
+            day: 0,
+            dayEnglobe: 0,
+            diff: 0
+        };
+
+        if (data.sex == '男') {
+            heat.basic = 66 + (13.7 * data.weight) + (5.0 * data.height) - (6.8 * data.age)
+        } else {
+            heat.basic = 655 + (9.6 * data.weight) + (1.7 * data.height) - (4.7 * data.age);
+        }
+
+        if (data.workingType == '长时间坐在办公室、教室里、很少运动或是完全没有运动的人。') {
+            heat.work = heat.basic * (1.2 - 1);
+        } else if (data.workingType == '偶尔会运动或散步、逛街、到郊外踏青，每周大约少量运动1~3次的人。') {
+            heat.work = heat.basic * (1.3 - 1);
+        } else if (data.workingType == '有持续运动的习惯，或是会上健身房，每周大约运动3~5次的人。') {
+            heat.work = heat.basic * (1.5 - 1);
+        } else if (data.workingType == '热爱运动，每周运动6~7次，或是工作量相当大的人') {
+            heat.work = heat.basic * (1.7 - 1);
+        } else if (data.workingType == '工作或生活作息需要大量劳动，相当消耗能量的人。') {
+            heat.work = heat.basic * (1.9 - 1);
+        }
+        heat.work = heat.work.toFixed(1);
+
+        heat.day = heat.basic + parseFloat(heat.work);
+
+        viewModel.heatManagement(heat);
+    }
+
+    //评价
+    viewModel.getAssess = function (bmi, data) {
+        if (bmi.actualValue > 24) {
+            if (data.sex == '男') {
+                if (data.waistline > 85) {
+                    viewModel.assess('身体脂肪含量高，有健康隐患');
+                }
+            } else {
+                if (data.waistline > 80) {
+                    viewModel.assess('身体脂肪含量高，有健康隐患');
+                }
+            }
+        } else if (bmi.actualValue >= 18.5 && bmi.actualValue <= 23.9) {
+            if (data.sex == '男') {
+                if (data.waistline > 85) {
+                    viewModel.assess('身体脂肪含量高，肌肉含量低，需无氧锻炼，有健康隐患');
+                }
+                if (data.waistline < 80) {
+                    viewModel.assess('身体脂肪含量适中，肌肉含量中，请继续保持');
+                }
+            } else {
+                if (data.waistline > 80) {
+                    viewModel.assess('身体脂肪含量高，肌肉含量低，需无氧锻炼，有健康隐患');
+                }
+                if (data.waistline < 75) {
+                    viewModel.assess('身体脂肪含量适中，肌肉含量中，请继续保持');
+                }
+            }
+        } else if (bmi.actualValue <= 18.5) {
+            viewModel.assess('身体脂肪含量过低，减少运动量，加大营养摄入');
+        }
+    }
+
+    //获取用户信息
+    viewModel.getUserInfo = function () {
+        var params = {};
+        params.deviceId = localStorage.deviceId;
+        Comget('/Home/getUserInfo', params, function (data) {
+            var data = data.backData;
+            viewModel.userInfo(data);
+            var height = data.height;
+            var weight = data.weight;
+            var bmi = {};
+            bmi.actualValue = (weight / (height / 100 * height / 100)).toFixed(1);
+            bmi.standardValueInterval = '18.5-23.9';
+            viewModel.BMI(bmi);
+            viewModel.getSickness(bmi);
+            viewModel.getAssess(bmi, data);
+            viewModel.getHeatManagement(data);
+            loadingOut();
+        });
+    }
+
+    viewModel.load = function () {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            loadingIn();
+            var myChart_1 = echarts.init(document.getElementById('heatReport-top-chart'), 'macarons');
+            myChart_1.setOption(chartConfig());
+            var myChart_2 = echarts.init(document.getElementById('heatReport-top-chart2'), 'macarons');
+            myChart_2.setOption(chartConfig2());
+            //获取用户信息
+            viewModel.getUserInfo();
+        }
+        else {
+            mui.toast('设备未连接，请先连接上设备');
+        }    
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

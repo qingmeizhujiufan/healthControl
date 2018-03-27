@@ -1,0 +1,529 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link href="~/Content/public/css/mui.min.css" rel="stylesheet" />
+    <link href="~/Content/public/css/public.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert-master/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/js/zepto.min.js"></script>
+    <script src="~/Content/public/js/mui.min.js"></script>
+    <style type="text/css">
+        .flex-box {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .top-btn {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #3955A2;
+        }
+
+        .flex-item {
+            flex: 1;
+            padding: 10px 0 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .index-btn {
+            width: 22px;
+            height: 22px;
+        }
+
+        .fir, .sec {
+            display: inline-block;
+            padding: 10px 10px 5px;
+            border-radius: 16px;
+        }
+
+        .fir {
+            background-color: #5B86DE;
+        }
+
+        .sec {
+            background-color: #E5C286;
+        }
+
+        .btn-title {
+            display: block;
+            margin-top: 1vh;
+            font-size: 12px;
+        }
+
+        .mui-slider .mui-slider-group .mui-slider-item img {
+            height: 50vw;
+        }
+
+        .mui-slider-indicator .mui-indicator {
+            background-color: #fff;
+            box-shadow: none;
+        }
+
+            .mui-slider-indicator .mui-indicator.mui-active {
+                background-color: #3955A2;
+            }
+
+        .goods-list {
+            margin: 0;
+            background-color: #fff;
+        }
+
+            .goods-list:after {
+                content: '';
+                display: table;
+                clear: both;
+            }
+
+            .goods-list li {
+                position: relative;
+                float: left;
+                width: 50%;
+                padding: 15px;
+            }
+
+                .goods-list li::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 1px;
+                    -webkit-transform: scaleY(.5);
+                    transform: scaleY(.5);
+                    -webkit-transform-origin: 0 100%;
+                    transform-origin: 0 100%;
+                    background-color: #E0E0E0 !important;
+                }
+
+                .goods-list li:nth-child(2n-1)::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 1px;
+                    height: 100%;
+                    -webkit-transform: scaleX(.5);
+                    transform: scaleX(.5);
+                    -webkit-transform-origin: 100% 0;
+                    transform-origin: 100% 0;
+                    background-color: #E0E0E0 !important;
+                }
+
+                .goods-list li .wrap-img {
+                    text-align: center;
+                }
+
+                    .goods-list li .wrap-img img {
+                        width: 30vw;
+                        height: 30vw;
+                    }
+
+                .goods-list li p {
+                    margin: 0;
+                }
+
+                    .goods-list li p:nth-child(2) {
+                        height: 40px;
+                        color: #000;
+                        font-size: 12px;
+                        line-height: 18px;
+                    }
+
+                    .goods-list li p:nth-child(3) {
+                        color: #fe0000;
+                        font-size: 12px;
+                    }
+
+        .backup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 11;
+        }
+
+        .red-pocket {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 76vw;
+            height: 99.9762vw;
+            margin-left: -38vw;
+            margin-top: -49.9881vw;
+            z-index: 12;
+        }
+
+            .red-pocket img {
+                width: 100%;
+                height: 100%;
+            }
+
+        .animated {
+            -webkit-animation-duration: .35s;
+            animation-duration: .35s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            z-index: 100;
+        }
+
+        .zoomIn {
+            animation-name: zoomIn;
+        }
+
+        .get-pocket {
+            position: absolute;
+            left: 11.5vw;
+            bottom: 8vw;
+            width: 54vw;
+            height: 11.5vw;
+            background-color: transparent;
+            z-index: 100;
+            border-radius: 100vw;
+        }
+
+        .close-pocket {
+            position: absolute;
+            right: 2.5vw;
+            top: 2.5vw;
+            width: 9vw;
+            height: 9vw;
+            background-color: transparent;
+            z-index: 100;
+        }
+
+        .money {
+            position: absolute;
+            left: 11.5vw;
+            bottom: 34vw;
+            width: 54vw;
+            text-align: center;
+            color: #FDD39D;
+            font-size: 12vw;
+            z-index: 110;
+        }
+    </style>
+    <script>
+        Zepto(function () {
+            if (sessionStorage.showPocket) {
+                $('.backup, .red-pocket').hide();
+            } else {
+                sessionStorage.setItem('showPocket', 1);
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav" style="background-color: #3955A2;">
+        <h1 class="mui-title" style="color: #fff;">苏酒生态圈</h1>
+    </header>
+    <div class="mui-content" style="margin-bottom: 80px;">
+        <div class="top-btn">
+            <div class='flex-item'>
+                <a href="#" style="display: block;">
+                    <div class="fir">
+                        <img class='index-btn' src="~/img/fangweichaxun.png" />
+                    </div>
+                </a>
+                <span class='btn-title'>防伪查询</span>
+            </div>
+            <div class='flex-item'>
+                <a href="/Home/openPocket" style="display: block;">
+                    <div class="sec">
+                        <img class='index-btn' src="~/img/fanqianbao.png" />
+                    </div>
+                </a>
+                <span class='btn-title'>翻钱包</span>
+            </div>
+        </div>
+        <div id="slider" class="mui-slider">
+            <div class="mui-slider-group mui-slider-loop">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="~/img/home_slider_3.png" />
+                    </a>
+                </div>
+                <!-- 第一张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="~/img/home_slider_1.png" />
+                    </a>
+                </div>
+                <!-- 第二张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="~/img/home_slider_2.png" />
+                    </a>
+                </div>
+                <!-- 第三张 -->
+                <div class="mui-slider-item">
+                    <a href="#">
+                        <img src="~/img/home_slider_3.png" />
+                    </a>
+                </div>
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="#">
+                        <img src="~/img/home_slider_1.png" />
+                    </a>
+                </div>
+            </div>
+            <div class="mui-slider-indicator">
+                <div class="mui-indicator mui-active"></div>
+                <div class="mui-indicator"></div>
+                <div class="mui-indicator"></div>
+            </div>
+        </div>
+        <ul class="mui-list-unstyled goods-list">
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/13.png" />
+                </div>
+                <p>海之蓝42度480ml (限拍5箱)</p>
+                <p>￥143.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/13.png" />
+                </div>
+                <p>海之蓝52度480ml (限拍5箱)</p>
+                <p>￥163.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/14.png" />
+                </div>
+                <p>天之蓝42度480ml 绵柔型白酒</p>
+                <p>￥318.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/14.png" />
+                </div>
+                <p>天之蓝52度480ml 绵柔型白酒</p>
+                <p>￥358.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/15.png" />
+                </div>
+                <p>梦之蓝M3 40.8度500ml</p>
+                <p>￥458.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/15.png" />
+                </div>
+                <p>梦之蓝M3 52度500ml</p>
+                <p>￥488.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/16.png" />
+                </div>
+                <p>梦之蓝M6 40.8度500ml 绵柔型白酒</p>
+                <p>￥663.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/16.png" />
+                </div>
+                <p>梦之蓝M6 52度500ml 绵柔型白酒</p>
+                <p>￥686.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/11.png" />
+                </div>
+                <p>【限拍4瓶】 洋河梦之蓝手工班52度500ml 新版</p>
+                <p>￥1688.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/12.png" />
+                </div>
+                <p>梦之蓝M9 52度500ml 绵柔型白酒</p>
+                <p>￥1999.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/9.png" />
+                </div>
+                <p>双沟珍宝坊 军坊 41.8度480ml+20ml 浓香型</p>
+                <p>￥108.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/10.png" />
+                </div>
+                <p>洋河微分子酒 (小V) 500mlKGD40 绵柔型白酒</p>
+                <p>￥428.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/7.png" />
+                </div>
+                <p>洋河微分子·微客500mlKGD40 整箱5瓶装</p>
+                <p>￥1640.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/8.png" />
+                </div>
+                <p>洋河大曲42度375ml 6瓶装浓香型白酒</p>
+                <p>￥209.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/5.png" />
+                </div>
+                <p>洋河 邃之蓝大曲42度500ml 双瓶</p>
+                <p>￥188.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/6.png" />
+                </div>
+                <p>星得斯赤霞珠进口红酒爱未停</p>
+                <p>￥89.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/1.png" />
+                </div>
+                <p>天之蓝42度375ml 绵柔型白酒</p>
+                <p>￥229.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/2.png" />
+                </div>
+                <p>海之蓝42度375ml 限拍2箱</p>
+                <p>￥99.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/3.png" />
+                </div>
+                <p>洋河 高之蓝42度500ml 双瓶</p>
+                <p>￥398.00</p>
+            </li>
+            <li>
+                <div class="wrap-img">
+                    <img src="~/img/bear/4.png" />
+                </div>
+                <p>梦之蓝M1 45度500ml 绵柔型白酒</p>
+                <p>￥328.00</p>
+            </li>
+        </ul>
+    </div>
+    <footer class="footer-nav hair-line-top">
+        <ul class="mui-list-unstyled">
+            <li class="active">
+                <a href="#">
+                    <img class="icon" src="~/img/home-active.png" />
+                    <p>首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img class="icon" src="~/img/service.png" />
+                    <p>服务</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img class="icon" src="~/img/me.png" />
+                    <p>我</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <div class="backup"></div>
+    <div class="red-pocket animated zoomIn">
+        @if (ViewData["isreceive"].ToString() == "1")
+        {
+            <img src="~/img/pocket_no.png" />
+            <span class="close-pocket"></span>
+        }
+        else
+        {
+            <img src="~/img/pocket_yes.png" />
+            <span class="get-pocket"></span>
+            <span class="close-pocket"></span>
+            if (ViewData["isSky"].ToString() == "True")
+            {
+                <span class="money">1.99<span style="font-size: 4.5vw;">元</span></span>
+            }
+            else
+            {
+                <span class="money">1.00<span style="font-size: 4.5vw;">元</span></span>
+            }
+
+        }
+
+    </div>
+    <script src="~/Content/sweetalert-master/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        var slider = mui("#slider");
+        slider.slider({
+            interval: 3000
+        });        
+
+        Zepto(function () {
+            $('.close-pocket').click(function () {
+                $('.backup, .red-pocket').hide();
+            });
+            console.log('scene_id === ' + '@ViewData["scene_id"].ToString()');
+            $('.get-pocket').click(function () {
+                var self = $(this);
+                self.removeClass('infinite-im');
+                $(this).removeClass('infinite-im');
+                var param = {};
+                param.scene_id = '@ViewData["scene_id"].ToString()';
+                $.post('/home/getRedPacket', param, function (data) {
+                    $('.backup, .red-pocket').hide();
+                    if (data.success) {
+                        swal({
+                            title: "恭喜!",
+                            text: "您已领取到红包!",
+                            type: "success",
+                            confirmButtonColor: "#D0D0D0",
+                            confirmButtonText: "关闭"
+                        });
+                    } else {
+                        swal({
+                            title: data.backMsg,
+                            text: "",
+                            type: "warning",
+                            confirmButtonColor: "#D0D0D0",
+                            confirmButtonText: "关闭"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

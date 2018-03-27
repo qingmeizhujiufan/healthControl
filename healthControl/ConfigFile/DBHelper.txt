@@ -1,0 +1,9 @@
+﻿<root>
+  <connectionStrings>
+    <add isCurrentUse="true" dbType="1" name="SqlServer" value="Data Source=(local);Initial Catalog=HealthControlDB;Integrated Security=True"></add>
+    <add isCurrentUse="false" dbType="1" name="SqlServer" value="Data Source=(local);Initial Catalog=test;Integrated Security=True"></add>
+    <add isCurrentUse="false" dbType="2" name="Oracle" value=""></add>
+    <add isCurrentUse="false" dbType="3" name="MySql" value="Server=localhost;User ID=root;Password=123;Persist Security Info=True;Database=schoolfellowinfoplatform_zhujj;charset=utf8"></add>
+	<add isCurrentUse="false" dbType="4" name="MySql" value="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\VSProjects\db\myacess.accdb;Persist Security Info=False"></add> 
+  </connectionStrings>
+</root>

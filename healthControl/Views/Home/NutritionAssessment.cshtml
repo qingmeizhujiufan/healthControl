@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .graph {
+        height: 80vw;
+        padding: 2vw;
+    }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+    <h1 class="mui-title">膳食及营养评估</h1>
+    <a class="mui-pull-right" href="/Home/AddNutritionData">录入数据</a>
+</header>
+<div class="mui-content estimation">
+    <div style="overflow-x: scroll;">
+
+    </div>
+    <div id="estimation-top-chart" class="graph"></div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>结论报告:</span>
+            <span></span>
+        </li>
+    </ul>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>改进建议:</span>
+            <span></span>
+        </li>
+    </ul>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>推荐食物:</span>
+            <span></span>
+        </li>
+    </ul>
+</div>
+<script>
+    var viewModel = {
+
+    };
+    var chartConfig = function () {
+        return {
+            //				title: {
+            //					text: '折线图堆叠'
+            //				},
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['推荐摄入量', '实际摄入量']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            //				toolbox: {
+            //					feature: {
+            //						saveAsImage: {}
+            //					}
+            //				},
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+
+                {
+                    name: '推荐摄入量',
+                    type: 'line',
+                    stack: '总量',
+                    data: [320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name: '实际摄入量',
+                    type: 'line',
+                    stack: '总量',
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
+    }
+    viewModel.load = function (loginContext) {
+        var myChart_1 = echarts.init(document.getElementById('estimation-top-chart'), 'macarons');
+        myChart_1.setOption(chartConfig());
+
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

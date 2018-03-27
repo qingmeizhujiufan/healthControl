@@ -1,0 +1,199 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .question {
+        margin-top: 15px;
+    }
+
+        .question .title {
+            margin-top: 10px;
+            padding-left: 15px;
+            line-height: 35px;
+            font-size: 16px;
+        }
+
+    .mui-table-view.device-project-info .mui-table-view-cell > span:last-child {
+        line-height: 20px;
+        background-color: #ddd;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .mui-table-view.device-project-info .mui-table-view-cell.selected > span:last-child {
+        background-color: #2EC7C9;
+    }
+
+    .wrap-btn {
+        padding: 50px 15px 30px 15px;
+    }
+
+        .wrap-btn span {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: #2EC7C9;
+            text-align: center;
+            border-radius: 7px;
+        }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="/Home/StressTesting"></a>
+    <h1 class="mui-title">PSTR专业版压力测试</h1>
+</header>
+<div class="mui-content">
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>计分标准</span>
+            <span>总是—４  经常—３ 有时—２ 很少—１ 从未—０</span>
+        </li>
+    </ul>
+    <div class="question" data-bind="foreach: resultList">
+        <div class="title" data-bind="text: $data.quest"></div>
+        <ul class="mui-table-view device-project-info" data-bind="foreach: $data.result">
+            <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': active}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                <span data-bind="text: opt"></span>
+                <span class="mui-icon mui-icon-checkmarkempty"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="wrap-btn">
+        <span data-bind="event: {tap: getScoreResult}">提交</span>
+    </div>
+</div>
+<script>
+    var viewModel = {
+        questionList: [],
+        resultList: ko.observableArray([])
+    };
+
+    viewModel.fillQuestion = function () {
+        viewModel.questionList = [
+            '1. 我的后颈感到疼痛。',
+            '2. 我消化不良。',
+            '3. 我小便频繁。',
+            '4. 我耳中有嗡嗡声。',
+            '5. 我咬指甲。',
+            '6. 我对自己说话。',
+            '7. 我吸烟。',
+            '8. 我忧虑财务问题。',
+            '9. 我得眼睛又酸又累。',
+            '10. 我手脚冰凉。',
+            '11. 我喝酒。',
+            '12. 我觉得不快乐。',
+            '13. 我的喉咙很紧。',
+            '14. 我有胃溃疡。',
+            '15. 我为琐事忧虑。',
+            '16. 我心情不安，无法静坐。',
+            '17. 我感到非常口干。',
+            '18. 我有头痛。',
+            '19. 与人见面时，我会窘迫。',
+            '20. 我对自己没有信心。',
+            '21. 我患便秘。',
+            '22. 我独自不舒服。',
+            '23. 白天我觉得累。',
+            '24. 我比少数人更神经紧张。',
+            '25. 下午我感到喉咙痛，但并非因为感冒。',
+            '26. 我口腔溃烂。',
+            '27. 我觉得自己像四分五裂。',
+            '28. 我的头感到紧痛。',
+            '29. 我觉得胸部紧迫。',
+            '30. 我有皮肤方面的病。',
+            '31. 我流汗。',
+            '32. 我的胃有病。',
+            '33. 我担心我的工作。',
+            '34. 我很难入睡',
+            '35. 我有十二指肠溃疡病',
+            '36. 我发现自己很容易哭。',
+            '37. 若须等候，我会不安。',
+            '38. 我怕结识人。',
+            '39. 我的心跳过速。',
+            '40. 我呼吸浅促。',
+            '41. 我未经医师指示使用各种药物。',
+            '42. 我很自觉。',
+            '43. 我受背痛之苦。',
+            '44. 我怕发生可怕的事。',
+            '45. 我心脏有病。',
+            '46. 我颚部疼痛。',
+            '47. 我的睡眠不定，且睡不安稳。',
+            '48. 我觉得自己不是很有用。',
+            '49. 我发现很难作决定。',
+            '50. 我的腿或脚抽筋。'
+        ];
+        var resultList = [];
+        for (var i = 0; i < viewModel.questionList.length; i++) {
+            resultList.push({
+                quest: viewModel.questionList[i],
+                result: [
+                    { active: ko.observable(false), opt: '从不' },
+                    { active: ko.observable(false), opt: '很少' },
+                    { active: ko.observable(false), opt: '有时' },
+                    { active: ko.observable(false), opt: '经常' },
+                    { active: ko.observable(false), opt: '总是' }
+                ]
+            });
+        }
+        viewModel.resultList(resultList);
+    }
+
+    viewModel.selectOpt = function (result, obj) {
+        result.result.map(function (item, index) {
+            item.active(false);
+        });
+        obj.active(true);
+    }
+
+    //提交问卷结果
+    viewModel.getScoreResult = function () {
+        var resultList = viewModel.resultList();
+        var scoreList = [];
+        var allowPost = false;
+        for (var i = 0; i < resultList.length; i++) {
+            var result = resultList[i].result;
+            var selected = false;
+            result.map(function (sub_item, sub_index) {
+                if (sub_item.active()) {
+                    selected = true;
+                    scoreList.push(sub_index);
+                }
+            });
+            if (!selected) {
+                mui.toast('第' + (i + 1) + '题未作答，请选择');
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        var params = {};
+        params.deviceId = viewModel.deviceId;
+        params.score = scoreList.join(',');
+        Compost('/Home/addScoreResult', JSON.stringify(params), function (data) {
+            mui.toast('提交成功');
+            setTimeout(function () {
+                window.location.href = '/Home/StressTesting';
+            }, 350);
+        });
+    }
+
+    viewModel.load = function () {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            viewModel.fillQuestion();
+        } else {
+            mui.toast('设备未连接，请先连接上设备');
+        }
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

@@ -1,0 +1,1228 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .mui-table-view {
+        margin-top: 15px;
+    }
+
+    .question {
+    }
+
+        .question .title {
+            padding: 5px;
+            color: #252525;
+            font-size: 14px;
+            line-height: 25px;
+        }
+
+    .mui-table-view-cell.mui-collapse .mui-collapse-content {
+        padding: 0 15px !important;
+        background-color: #f5f5f5;
+    }
+
+    .mui-table-view-cell.mui-collapse .mui-table-view {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .mui-table-view.device-project-info .mui-table-view-cell {
+        color: #555;
+        font-size: 14px;
+    }
+
+        .mui-table-view.device-project-info .mui-table-view-cell > span:last-child {
+            line-height: 20px;
+            background-color: #ddd;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .mui-table-view.device-project-info .mui-table-view-cell.selected > span:last-child {
+            background-color: #2EC7C9;
+        }
+
+    .wrap-btn {
+        padding: 50px 15px 30px 15px;
+    }
+
+        .wrap-btn span {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: #2EC7C9;
+            text-align: center;
+            border-radius: 7px;
+        }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="/Home/LifeStyleReport"></a>
+    <h1 class="mui-title">生活方式评测</h1>
+</header>
+<div class="mui-content">
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-collapse mui-active">
+            <a class="mui-navigate-right" href="#">一、吸烟</a>
+            <div class="mui-collapse-content">
+                <div class="question" data-bind="foreach: smokeList">
+                    <!-- ko if: $index() == 0 -->
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                    <!-- ko if: $index() >= 1 && $index() < 7 -->
+                    <div class="title" data-bind="visible: $root.smokeList()[0].option[2].selected() == false, text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="visible: $root.smokeList()[0].option[2].selected() == false, foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                    <!-- ko if: $index() == 7 || $index() == 8 -->
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">二、饮酒</a>
+            <div class="mui-collapse-content">
+                <div class="question" data-bind="foreach: drinkList">
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">三、环境及生活习惯</a>
+            <div class="mui-collapse-content">
+                <div class="question" data-bind="foreach: lifeList">
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">四、体育锻炼及身体负荷</a>
+            <div class="mui-collapse-content">
+                <div class="question" data-bind="foreach: exerciseList">
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">五、睡眠</a>
+            <div class="mui-collapse-content">
+                <div class="question" data-bind="foreach: sleepList">
+                    <div class="title" data-bind="text: ($index() + 1) + '. ' + $data.question"></div>
+                    <ul class="mui-table-view device-project-info" data-bind="foreach: $data.option">
+                        <li class="mui-table-view-cell hair-line-bottom" data-bind="css: {'selected': selected}, event: {tap: $root.selectOpt.bind(null, $parent)}">
+                            <span data-bind="text: label + '   ' + point + '分'"></span>
+                            <span class="mui-icon mui-icon-checkmarkempty"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="wrap-btn">
+        <span data-bind="event: {tap: getScoreResult}">提交</span>
+    </div>
+</div>
+<script>
+    var viewModel = {
+        smokeList: ko.observableArray([]),
+        drinkList: ko.observableArray([]),
+        lifeList: ko.observableArray([]),
+        exerciseList: ko.observableArray([]),
+        sleepList: ko.observableArray([]),
+        resultList: ko.observableArray([])
+    };
+
+    viewModel.fillSmoke = function () {
+        var smokeList = [];
+        smokeList = [
+            {
+                question: '您的吸烟习惯?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '每天吸烟',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '吸,但不是每天吸',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '不吸烟',
+                        point: 7
+                    },
+                ]
+
+            },
+            {
+                question: '您早晨醒来后多长时间吸第一支烟?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '5分钟以内',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '6-30分钟',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '31-60分钟',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '1小时以上',
+                        point: 3
+                    }
+                ]
+
+            },
+            {
+                question: '在禁烟的公共场所，如教室、图书馆、电影院等，你会不会因为不能吸烟而感到难熬?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '是',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '不是',
+                        point: 1
+                    }
+                ]
+
+            },
+            {
+                question: '您认为哪一支烟最不愿意放弃？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '其他时间',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '晨起第一支',
+                        point: 0
+                    }
+                ]
+
+            },
+            {
+                question: '您每天吸多少支卷烟？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '少于10支',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '11-20支',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '21-30支',
+                        point: 1
+                    }
+                    ,
+                    {
+                        selected: ko.observable(false),
+                        label: '31支以上',
+                        point: 0
+                    }
+                ]
+
+            },
+            {
+                question: '您起床后1小时内吸烟是否比在其他时间更频繁一些?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '是',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '不是',
+                        point: 1
+                    }
+                ]
+
+            },
+            {
+                question: '你生病卧床时依旧吸烟吗?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '是',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '不是',
+                        point: 1
+                    }
+                ]
+
+            },
+            {
+                question: '您是否每天吸入二手吸烟?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '没有',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '有',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '不知道',
+                        point: 1
+                    }
+                ]
+
+            },
+            {
+                question: '如果有吸入二手烟，有没超过15分钟?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '有',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '没有',
+                        point: 2
+                    }
+                ]
+
+            }
+        ];
+        viewModel.smokeList(smokeList);
+    }
+
+    viewModel.fillDrink = function () {
+        var drinkList = [];
+        drinkList = [
+            {
+                question: '您近一月的饮酒情况?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '从不',
+                        point: 10
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '偶尔',
+                        point: 5
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '经常',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '每天',
+                        point: 0
+                    }
+                ]
+            },
+            {
+                question: '您开始饮酒年龄?',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '15岁以前',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '15～18岁',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '18岁以后',
+                        point: 2
+                    }
+                ]
+            },
+            {
+                question: '您每次的饮酒量平均？(选择中白酒与啤酒出现直接计0分，如未出现，选择红酒、黄酒计1分，不重复记分)',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '白酒',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '啤酒',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '红酒',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '黄酒',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '其他',
+                        point: 1
+                    }
+                ]
+            }
+        ];
+        viewModel.drinkList(drinkList);
+    }
+
+    viewModel.fillLife = function () {
+        var lifeList = [];
+        lifeList = [
+            {
+                question: '您的饮食习惯属于下列哪种类型？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '荤素均衡',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '荤食为主',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '素食为主',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '嗜盐',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '嗜油',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '嗜糖',
+                        point: 0
+                    }
+                ]
+            },
+            {
+                question: '请您自我评价饮食口味的偏好情况？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '轻淡',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '味道丰富',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '刺激',
+                        point: 0
+                    }
+                ]
+            },
+            {
+                question: '您常饮用水来源于以下哪种？',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '自来水',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '经净化过滤的水',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '井水',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '河湖水',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '塘水',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '包装水',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '饮料',
+                        point: 0
+                    }
+                ]
+            },
+            {
+                question: '您在外用餐的次数？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '少于5次/周',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '6-10次/周',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '几乎每餐都在外用餐',
+                        point: 0
+                    }
+                ]
+            },
+            {
+                question: '您家庭清洁食材的处理方式？',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '自来水冲洗浸泡',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '饮用水及冲洗浸泡',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '专用清洁剂清洁',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '设备系统清洁',
+                        point: 2
+                    }
+                ]
+            },
+            {
+                question: '对于雾霾您家庭的处理方式是？',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '不特别处理',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '紧闭门窗',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '使用空调或新风系统',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '使用空气净化系统',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '佩戴口罩',
+                        point: 2
+                    }
+                ]
+            }
+        ];
+        viewModel.lifeList(lifeList);
+    }
+
+    viewModel.fillExercise = function () {
+        var exerciseList = [];
+        exerciseList = [
+            {
+                question: '您参加体育锻炼的情况？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '从不',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '少于1d/月',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '1d/月~3d/月',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '1d/周~2d/周',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '3d/周~4d/周',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '5d/周~6d/周',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '每天',
+                        point: 3
+                    }
+                ]
+            },
+            {
+                question: '请您选择您常用的锻炼方式？(选1个计1分，最多3分)',
+                multi: true,
+                most: 3,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '散步',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '慢跑',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '游泳',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '跳绳',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '爬楼梯',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '羽毛球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '乒乓球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '篮球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '健身器械',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '健身操',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '交谊舞瑜伽',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '高尔夫球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '足球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '排球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '网球',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '登山',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '太极拳',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '其他',
+                        point: 1
+                    }
+                ]
+            },
+            {
+                question: '每次锻炼时间？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '少于20分钟',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '20～40分钟',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '40分钟以上',
+                        point: 3
+                    }
+                ]
+            },
+            {
+                question: '坚持锻炼时间？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '不到1个月',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '1～3个月',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '半年以上',
+                        point: 3
+                    }
+                ]
+            },
+            {
+                question: '体力负荷程度属于哪种？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '轻体力劳动强度（大部分时间静坐、站立，例如坐办公室、营业员等） ',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '中度体力劳动强度（如电工、木工、管道工等）',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '重体力劳动强度（如建筑、采矿、装卸、务农等）',
+                        point: 3
+                    }
+                ]
+            },
+            {
+                question: '工作性质主要是那种形式？',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '以站为主',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '以坐为主',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '以动为主',
+                        point: 3
+                    }
+                ]
+            },
+            {
+                question: '您每天的工作时间 ?',
+                multi: true,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '8小时以内',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '8～10小时',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '10～12小时',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '12小时以上',
+                        point: 4
+                    }
+                ]
+            }
+        ];
+        viewModel.exerciseList(exerciseList);
+    }
+
+    viewModel.fillSleep = function () {
+        var sleepList = [];
+        sleepList = [
+            {
+                question: '近1个月，您的睡眠如何？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '很好',
+                        point: 3
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '一般',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '较差',
+                        point: 0
+                    },
+                ]
+
+            },
+            {
+                question: '近1个月，您平均每晚的睡眠时间？（不等于卧床时间）',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '少于5小时',
+                        point: 0
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '5～6小时',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '6～9小时',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '超过9小时',
+                        point: 3
+                    }
+                ]
+
+            },
+            {
+                question: '近1个月，您服用安眠药吗？',
+                multi: false,
+                option: [
+                    {
+                        selected: ko.observable(false),
+                        label: '从不',
+                        point: 2
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '偶尔',
+                        point: 1
+                    },
+                    {
+                        selected: ko.observable(false),
+                        label: '经常',
+                        point: 0
+                    }
+                ]
+            }
+        ];
+        viewModel.sleepList(sleepList);
+    }
+
+    viewModel.selectOpt = function (result, obj) {
+        result.multi = result.multi || false;
+        if (result.multi) {
+            result.hasMost = result.most ? true : false;
+            if (result.hasMost) {
+                var countSelected = 0;
+                result.option.map(function (item, index) {
+                    if (item.selected()) countSelected++;
+                });
+                if (countSelected >= result.most) {
+                    if (obj.selected()) {
+                        obj.selected(false);
+                    }
+                } else {
+                    if (obj.selected()) {
+                        obj.selected(false);
+                    } else {
+                        obj.selected(true);
+                    }
+                }
+            } else {
+                if (obj.selected()) {
+                    obj.selected(false);
+                } else {
+                    obj.selected(true);
+                }
+            }
+        } else {
+            result.option.map(function (item, index) {
+                item.selected(false);
+            });
+            obj.selected(true);
+        }
+    }
+
+    //提交问卷结果
+    viewModel.getScoreResult = function () {
+        var smokeList = viewModel.smokeList();
+        var drinkList = viewModel.drinkList();
+        var lifeList = viewModel.lifeList();
+        var exerciseList = viewModel.exerciseList();
+        var sleepList = viewModel.sleepList();
+        var smokeScoreList = [],
+            drinkScoreList = [],
+            lifeScoreList = [],
+            exerciseScoreList = [],
+            sleepScoreList = [];
+        //校验吸烟评测
+        var allowPost = false;
+        for (var i = 0; i < smokeList.length; i++) {
+            var result = smokeList[i].option;
+            var selected = false;
+            if (smokeList[0].option[0].selected() || smokeList[0].option[1].selected()) {
+                if (i < 7) {
+                    result.map(function (sub_item, sub_index) {
+                        if (sub_item.selected()) {
+                            selected = true;
+                            smokeScoreList.push(sub_item.point);
+                        }
+                    });
+                } else {
+                    selected = true;
+                }
+            } else {
+                if (i < 1 || i >= 7) {
+                    result.map(function (sub_item, sub_index) {
+                        if (sub_item.selected()) {
+                            selected = true;
+                            smokeScoreList.push(sub_item.point);
+                        }
+                    });
+                } else {
+                    selected = true;
+                }
+            }
+            if (!selected) {
+                mui.toast('吸烟类别中第' + (i + 1) + '题未作答，请选择');
+                allowPost = false;
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        //校验饮酒评测
+        allowPost = false;
+        for (var i = 0; i < drinkList.length; i++) {
+            var result = drinkList[i].option;
+            var selected = false;
+            var pointList = [];
+            if (drinkList[i].multi) {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        pointList.push(1);
+                    } else {
+                        pointList.push(0);
+                    }
+                });
+                if (pointList[0] == 1 || pointList[1] == 1) {
+                    drinkScoreList.push(0);
+                } else {
+                    drinkScoreList.push(1);
+                }
+            } else {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        drinkScoreList.push(sub_item.point);
+                    }
+                });
+            }
+            if (!selected) {
+                mui.toast('饮酒类别中第' + (i + 1) + '题未作答，请选择');
+                allowPost = false;
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        //校验环境及生活评测
+        allowPost = false;
+        for (var i = 0; i < lifeList.length; i++) {
+            var result = lifeList[i].option;
+            var selected = false;
+            var totalPoint = 0;
+            var pointList = [];
+            if (lifeList[i].multi) {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        pointList.push(sub_item.point);
+                    }
+                });
+                pointList.map(function (item, index) {
+                    totalPoint += item;
+                });
+                lifeScoreList.push(totalPoint);
+            } else {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        lifeScoreList.push(sub_item.point);
+                    }
+                });
+            }
+            if (!selected) {
+                mui.toast('环境及生活习惯类别中第' + (i + 1) + '题未作答，请选择');
+                allowPost = false;
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        //校验体育锻炼及身体负荷评测
+        allowPost = false;
+        for (var i = 0; i < exerciseList.length; i++) {
+            var result = exerciseList[i].option;
+            var selected = false;
+            var totalPoint = 0;
+            var pointList = [];
+            if (exerciseList[i].multi) {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        pointList.push(sub_item.point);
+                    }
+                });
+                pointList.map(function (item, index) {
+                    totalPoint += item;
+                });
+                exerciseScoreList.push(totalPoint);
+            } else {
+                result.map(function (sub_item, sub_index) {
+                    if (sub_item.selected()) {
+                        selected = true;
+                        exerciseScoreList.push(sub_item.point);
+                    }
+                });
+            }
+            if (!selected) {
+                mui.toast('体育锻炼及身体负荷类别中第' + (i + 1) + '题未作答，请选择');
+                allowPost = false;
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        //校验睡眠评测
+        allowPost = false;
+        for (var i = 0; i < sleepList.length; i++) {
+            var result = sleepList[i].option;
+            var selected = false;
+            result.map(function (sub_item, sub_index) {
+                if (sub_item.selected()) {
+                    selected = true;
+                    sleepScoreList.push(sub_item.point);
+                }
+            });
+            if (!selected) {
+                mui.toast('睡眠类别中第' + (i + 1) + '题未作答，请选择');
+                allowPost = false;
+                break;
+            } else {
+                allowPost = true;
+            }
+        }
+        if (!allowPost) {
+            return false;
+        }
+
+        var params = {};
+        params.device_id = viewModel.deviceId;
+        params.smoke_score = smokeScoreList.join(',');
+        params.drink_score = drinkScoreList.join(',');
+        params.life_score = lifeScoreList.join(',');
+        params.exercise_score = exerciseScoreList.join(',');
+        params.sleep_score = sleepScoreList.join(',');
+        Compost('/Home/addLifeResult', JSON.stringify(params), function (data) {
+            mui.toast('提交成功');
+            setTimeout(function () {
+                window.location.href = '/Home/LifeStyleReport';
+            }, 350);
+        });
+    }
+
+    viewModel.load = function () {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            viewModel.fillSmoke();
+            viewModel.fillDrink();
+            viewModel.fillLife();
+            viewModel.fillExercise();
+            viewModel.fillSleep();
+        }
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

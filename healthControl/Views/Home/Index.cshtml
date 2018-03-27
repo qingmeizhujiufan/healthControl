@@ -1,0 +1,220 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    body {
+        background-color: #fff;
+    }
+
+    .mui-content {
+        margin-top: 0;
+    }
+
+    .home-icon .div-col {
+        margin: 0;
+        padding: 25px 15px;
+        vertical-align: top;
+    }
+
+        .home-icon .div-col .mui-media-body {
+            font-size: 14px;
+            line-height: 20px;
+            display: block;
+            width: 100%;
+            text-overflow: ellipsis;
+            color: #333;
+        }
+
+    .home-icon {
+        margin-top: -44px;
+        text-align: center;
+    }
+
+        .home-icon .div-col img {
+            display: inline-block;
+            height: 2.5em;
+            margin-bottom: 10px;
+        }
+
+    .home-banner {
+        position: relative;
+    }
+
+        .home-banner img:nth-child(1) {
+            width: 100%;
+            margin-top: 48px;
+        }
+
+        .home-banner img:nth-child(2) {
+            position: absolute;
+            top: 45%;
+            left: 8%;
+            width: 35%;
+        }
+
+    .iconfont {
+        display: inline-block;
+        padding-bottom: 20px;
+        font-size: 32px;
+        color: #545454;
+    }
+</style>
+<div class="mui-content">
+    <canvas id="canvas" style="position:absolute;top:0px;left:0px;bottom: 0;z-index:1;"></canvas>
+    <div class="mui-content mui-scroll-wrapper home-icon" style="margin-top: 0; background-color: transparent;">
+        <div class="mui-scroll">
+            <div class="mui-row">
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/HealthIndicator')}">
+                    <span class="iconfont icon-msnui-data-supervise"></span>
+                    <div class="mui-media-body">身体指标</div>
+                </div>
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/NutritionAssessment')}">
+                    <span class="iconfont icon-unie644"></span>
+                    <div class="mui-media-body">膳食及营养评估</div>
+                </div>
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/SportsReport')}">
+                    <span class="iconfont icon-yundonghuwaileimufill"></span>
+                    <div class="mui-media-body">热量及运动报告</div>
+                </div>
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/LifeStyleReport')}">
+                    <span class="iconfont icon-icon"></span>
+                    <div class="mui-media-body">生活方式报告</div>
+                </div>
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/StressTesting')}">
+                    <span class="iconfont icon-iconjsyl"></span>
+                    <div class="mui-media-body">精神及压力测试</div>
+                </div>
+                <div class="mui-col-xs-4 div-col" data-bind="event: {tap: clickItem.bind(null,'/Home/UserInfo')}">
+                    <span class="iconfont icon-yonghuxinxi"></span>
+                    <div class="mui-media-body">用户信息</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    wx.config({
+        beta: true, // 开启内测接口调用，注入wx.invoke方法
+        debug: false, // 开启调试模式
+        appId: '@ViewData["appId"]', // 第三方app唯一标识
+        timestamp: parseInt('@ViewData["timestamp"]'), // 生成签名的时间戳
+        nonceStr: '@ViewData["nonceStr"]', // 生成签名的随机串
+        signature: '@ViewData["signature"]',// 签名
+        jsApiList: [
+            "openWXDeviceLib",//初始化设备库（只支持蓝牙设备）
+            "closeWXDeviceLib",//关闭设备库（只支持蓝牙设备）
+            "getWXDeviceInfos",//获取设备信息（获取当前用户已绑定的蓝牙设备列表）
+            "sendDataToWXDevice",//发送数据给设备
+            "startScanWXDevice",//扫描设备（获取周围所有的设备列表，无论绑定还是未被绑定的设备都会扫描到）
+            "stopScanWXDevice",//停止扫描设备
+            "connectWXDevice",//连接设备
+            "disconnectWXDevice",//断开设备连接
+            "getWXDeviceTicket",//获取操作凭证
+
+            //下面是监听事件：
+            "onWXDeviceBindStateChange",//微信客户端设备绑定状态被改变时触发此事件
+            "onWXDeviceStateChange",//监听连接状态，可以监听连接中、连接上、连接断开
+            "onReceiveDataFromWXDevice",//接收到来自设备的数据时触发
+            "onScanWXDeviceResult",//扫描到某个设备时触发
+            "onWXDeviceBluetoothStateChange",//手机蓝牙打开或关闭时触发
+        ] // 需要使用的jsapi列表，所有jsapi列表见附录2
+    });
+    wx.ready(function () {
+        // 初始化设备库函数
+        wx.invoke('openWXDeviceLib', {}, function (res) {          
+        });     
+        //获取设备列表信息
+        wx.invoke('getWXDeviceInfos', null, function (res) {
+            //这里是回调函数
+            if (res.err_msg == 'getWXDeviceInfos:ok') {
+                viewModel.deviceInfos(res.deviceInfos);
+                localStorage.deviceId = res.deviceInfos[0].deviceId;
+                mui.toast('已连接上设备');
+            }
+        });
+        //监听设备返回的数据
+        wx.on('onReceiveDataFromWXDevice', function (res) {
+            var unicode = BASE64.decoder(res.base64Data);
+            var str = '';
+            for (var i = 0, len = unicode.length ; i < len ; ++i) {
+                str += String.fromCharCode(unicode[i]);
+            }
+            viewModel.onReceiveData(unicode);
+            alert('res == ', unicode);
+
+        })
+    });
+</script>
+<script>
+    var viewModel = {
+        deviceInfos: ko.observableArray([]),
+        onReceiveData: ko.observable('')
+    };
+    viewModel.clickItem = function (param) {
+        window.location.href = param;
+    }
+
+    viewModel.wave = function () {
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        //定义三条不同波浪的颜色
+        var lines = ["rgba(42,199,159, 0.2)",
+            "rgba(42,199,159, 0.3)",
+            "rgba(42,199,159, 0.4)"
+        ];
+        //初始角度为0
+        var step = 0;
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            step++;
+            //画3个不同颜色的矩形
+            for (var j = lines.length - 1; j >= 0; j--) {
+                ctx.fillStyle = lines[j];
+                //每个矩形的角度都不同，每个之间相差45度
+                var angle = (step + j * 45) * Math.PI / 180;
+                var deltaHeight = Math.sin(angle) * 50;
+                var deltaHeightRight = Math.cos(angle) * 50;
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height / 1.2 + deltaHeight);
+                ctx.bezierCurveTo(canvas.width / 2, canvas.height / 1.2 + deltaHeight - 50, canvas.width / 2, canvas.height / 1.2 + deltaHeightRight - 50, canvas.width, canvas.height / 1.2 + deltaHeightRight);
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.lineTo(0, canvas.height);
+                ctx.lineTo(0, canvas.height / 1.2 + deltaHeight);
+                ctx.closePath();
+                ctx.fill();
+            }
+            requestAnimFrame(loop);
+        }
+
+        //如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout
+        window.requestAnimFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        loop();
+    }
+
+    window.onresize = function () {
+        throttle(viewModel.wave);
+    };
+
+    viewModel.load = function () {
+        viewModel.wave();
+        window.addEventListener("resize", function () {
+            viewModel.wave();
+        });
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

@@ -1,0 +1,287 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .graph {
+        height: 80vw;
+        padding: 2vw;
+    }
+</style>
+<header class="mui-bar mui-bar-nav dark">
+    <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="~/Home/Index"></a>
+    <h1 class="mui-title">生活方式报告</h1>
+    <a class="mui-pull-right" href="/Home/LifeStyleQuestion">开始评测</a>
+</header>
+<div class="mui-content lifeReport">
+    <ul class="mui-table-view device-project-info">
+        <li class="mui-table-view-cell">
+            <span></span>本月得分
+            <span data-bind="text: totalPoint() + ' 分'"></span>
+        </li>
+    </ul>
+    <h5 style="padding: 10px; color: #545454;">健康影响因素</h5>
+    <ul class="mui-table-view device-project-info">
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>吸烟
+            <span data-bind="text: smoke_score().singleScore + ' 分'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>饮酒
+            <span data-bind="text: drink_score().singleScore + ' 分'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>环境及生活习惯
+            <span data-bind="text: life_score().singleScore + ' 分'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>体育锻炼及身体负荷指数
+            <span data-bind="text: exercise_score().singleScore + ' 分'"></span>
+        </li>
+        <li class="mui-table-view-cell hair-line-bottom">
+            <span></span>睡眠
+            <span data-bind="text: sleep_score().singleScore + ' 分'"></span>
+        </li>
+    </ul>
+    <div id="lifeReport-top-chart" class="graph"></div>
+    <ul class="mui-list-unstyled device-base-info">
+        <li>
+            <span>改善建议：</span>
+            <span data-bind="text: suggestion"></span>
+        </li>
+        <!--内容区-->
+    </ul>
+</div>
+<script>
+    var viewModel = {
+        smoke_score: ko.observable({
+            item: '',
+            totalPoint: 0
+        }),
+        smoke_score_list: [],
+        drink_score: ko.observable({
+            item: '',
+            totalPoint: 0
+        }),
+        drink_score_list: [],
+        life_score: ko.observable({
+            item: '',
+            totalPoint: 0
+        }),
+        life_score_list: [],
+        exercise_score: ko.observable({
+            item: '',
+            totalPoint: 0
+        }),
+        exercise_score_list: [],
+        sleep_score: ko.observable({
+            item: '',
+            totalPoint: 0
+        }),
+        sleep_score_list: [],
+        totalPoint: ko.observable(0),
+        totalPointList: [],
+        suggestion: ko.observable('')
+    };
+
+    var chartConfig = function (data) {
+        var dateList = [],
+            dataList = [];
+        data.map(function (item, index) {
+            dateList.push(item.create_time);
+            dataList.push(item.score);
+        });
+
+        return {
+            tooltip: {
+                trigger: 'axis'
+            },
+
+            calculable: true,
+            grid: {
+                x: 45,
+                y: 30
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 45,
+                        margin: 10,
+                        textStyle: {
+                            color: "#666",
+                            fontSize: 10
+                        }
+                    },
+                    data: dateList
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} 分'
+                    }
+                }
+            ],
+            series: [
+                {
+                    type: 'line',
+                    data: dataList,
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: '最大值' },
+                            { type: 'min', name: '最小值' }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            { type: 'average', name: '平均值' }
+                        ]
+                    }
+                }
+            ]
+        };
+    }
+
+    viewModel.getData = function () {
+        var params = {};
+        params.deviceId = viewModel.deviceId;
+        params.month = new Date().getMonth() + 1;
+        loadingIn();
+        Comget('/Home/getLatestLifeStyleResult', params, function (data) {
+            var data = strToJson(data.backData);
+            console.log('data == ', data);
+            var len = data.length;
+            var _data = [];
+            for (var i = 0; i < len; i++) {
+                var smoke_score = {
+                    item: data[i].smoke_score,
+                    totalPoint: data[i].smoke_score.split(',').map(function (item, index) {
+                        return parseInt(item);
+                    }).reduce(function (prev, next) {
+                        return prev + next;
+                    })
+                };
+                var drink_score = {
+                    item: data[i].drink_score,
+                    totalPoint: data[i].drink_score.split(',').map(function (item, index) {
+                        return parseInt(item);
+                    }).reduce(function (prev, next) {
+                        return prev + next;
+                    })
+                };
+                var life_score = {
+                    item: data[i].life_score,
+                    totalPoint: data[i].life_score.split(',').map(function (item, index) {
+                        return parseInt(item);
+                    }).reduce(function (prev, next) {
+                        return prev + next;
+                    })
+                };
+                var exercise_score = {
+                    item: data[i].exercise_score,
+                    totalPoint: data[i].exercise_score.split(',').map(function (item, index) {
+                        return parseInt(item);
+                    }).reduce(function (prev, next) {
+                        return prev + next;
+                    })
+                };
+                var sleep_score = {
+                    item: data[i].sleep_score,
+                    totalPoint: data[i].sleep_score.split(',').map(function (item, index) {
+                        return parseInt(item);
+                    }).reduce(function (prev, next) {
+                        return prev + next;
+                    })
+                };
+                smoke_score.singleShowScore = (smoke_score.totalPoint / 10 * 1.25 / 5 * 100).toFixed(1);
+                smoke_score.singleScore = (smoke_score.totalPoint / 10 * 100).toFixed(1);
+                drink_score.singleShowScore = (drink_score.totalPoint / 10 * 1.25 / 5 * 100).toFixed(1);
+                drink_score.singleScore = (drink_score.totalPoint / 10 * 100).toFixed(1);
+                life_score.singleShowScore = (life_score.totalPoint / 21 * 1.00 / 5 * 100).toFixed(1);
+                life_score.singleScore = (life_score.totalPoint / 21 * 100).toFixed(1);
+                exercise_score.singleShowScore = (exercise_score.totalPoint / 23 * 1.00 / 5 * 100).toFixed(1);
+                exercise_score.singleScore = (exercise_score.totalPoint / 23 * 100).toFixed(1);
+                sleep_score.singleShowScore = (sleep_score.totalPoint / 8 * 0.50 / 5 * 100).toFixed(1);
+                sleep_score.singleScore = (sleep_score.totalPoint / 8 * 100).toFixed(1);
+
+                viewModel.smoke_score_list.push(smoke_score);
+                viewModel.drink_score_list.push(drink_score);
+                viewModel.life_score_list.push(life_score);
+                viewModel.exercise_score_list.push(exercise_score);
+                viewModel.sleep_score_list.push(sleep_score);
+                viewModel.totalPointList.push(
+                    (
+                    parseFloat(smoke_score.singleShowScore) +
+                    parseFloat(drink_score.singleShowScore) +
+                    parseFloat(life_score.singleShowScore) +
+                    parseFloat(exercise_score.singleShowScore) +
+                    parseFloat(sleep_score.singleShowScore)
+                    ).toFixed(1)
+                );
+                _data.push({
+                    score: viewModel.totalPointList[i],
+                    create_time: data[i].create_time
+                });
+            }
+            
+            viewModel.smoke_score(viewModel.smoke_score_list[len - 1]);
+            viewModel.drink_score(viewModel.drink_score_list[len - 1]);
+            viewModel.life_score(viewModel.life_score_list[len - 1]);
+            viewModel.exercise_score(viewModel.exercise_score_list[len - 1]);
+            viewModel.sleep_score(viewModel.sleep_score_list[len - 1]);
+            viewModel.totalPoint(viewModel.totalPointList[len - 1]);
+            viewModel.adjustmentSuggestion();
+            console.log('_data == ', _data);
+            viewModel.myChart.setOption(chartConfig(_data));
+            loadingOut();
+        });
+    }
+
+    viewModel.adjustmentSuggestion = function () {
+        var totalPoint = viewModel.totalPoint();
+        var smoke = viewModel.smoke_score();
+        var drink = viewModel.drink_score();
+        var life = viewModel.life_score();
+        var exercise = viewModel.exercise_score();
+        var sleep = viewModel.sleep_score();
+
+        if (totalPoint >= 80) {
+            if (smoke.singleScore >= 75
+                && drink.singleScore >= 75
+                && life.singleScore >= 75
+                && exercise.singleScore >= 75
+                && sleep.singleScore >= 75) {
+                viewModel.suggestion('您的生活方式健康，请继续保持健康的生活方式。');
+            } else {
+                viewModel.suggestion('您的生活方式大体健康，但请关注（低于75分）项。');
+            }
+        } else {
+            if (smoke.singleScore >= 75
+                && drink.singleScore >= 75
+                && life.singleScore >= 75
+                && exercise.singleScore >= 75
+                && sleep.singleScore >= 75) {
+                viewModel.suggestion('生活忙碌也要关注健康，身体是最大的财富，稍稍调整您的生活方式，可以让自己和家人更健康。');
+            } else {
+                viewModel.suggestion('生活忙碌也要关注健康，身体是最大的财富，（低于75分）项的改善能让您身体更健康，生活更美满。');
+            }
+        }
+    }
+
+    viewModel.load = function (loginContext) {
+        if (localStorage.deviceId) {
+            viewModel.deviceId = localStorage.deviceId;
+            loadingIn();
+            viewModel.myChart = echarts.init(document.getElementById('lifeReport-top-chart'), 'macarons');
+            viewModel.getData();
+        } else {
+
+        }
+    }
+    ko.applyBindings(viewModel, $('#content')[0]);
+
+    viewModel.load();
+</script>

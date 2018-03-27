@@ -1,0 +1,235 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Content/public/css/mui.min.css" rel="stylesheet" />
+    <link href="~/Content/public/css/public.css" rel="stylesheet" />
+    <style type="text/css">
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .wp-100 {
+            width: 100%;
+        }
+
+        .flex-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .row {
+            flex-direction: row;
+        }
+
+        .col {
+            flex-direction: column;
+        }
+
+        .align-items-start {
+            align-items: flex-start;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .qos-list {
+            width: 100%;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+            justify-content: space-between;
+        }
+
+            .qos-list:last-child {
+                margin-bottom: 30px;
+            }
+
+            .qos-list .icon {
+                width: 14px;
+                height: 14px;
+                margin-left: 10px;
+                margin-right: 15px;
+            }
+
+            .qos-list .text {
+                font-size: 14px;
+                color: #000;
+            }
+
+            .qos-list .arrow {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+            }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 10px 0 45px;
+            background-color: #3955A2;
+        }
+
+            .info .num {
+                width: 64px;
+                height: 64px;
+                margin: 7vh 0 1vh;
+                border-radius: 50%;
+                color: #FDAC03;
+                text-align: center;
+                font-size: 12vw;
+            }
+
+            .info .label {
+                color: #ccc;
+                font-size: 14px;
+            }
+
+        .pocket-btn-group {
+            width: 100%;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+        }
+
+            .pocket-btn-group .img {
+                width: 25px;
+                height: 25px;
+                margin-right: 15px;
+            }
+
+        .flex-item {
+            flex: 1;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .pocket-btn-group .flex-item:first-child {
+            border-right: 1px solid #eee;
+        }
+
+        .block-name {
+            margin-left: 10px;
+            padding: 15px 0;
+            text-align: left;
+            font-size: 14px;
+            color: #707070;
+        }
+
+        .block-area {
+            padding: 0 10px;
+        }
+
+            .block-area > .flex-box {
+                width: 100%;
+                padding: 15px 0;
+                background-color: #fff;
+                border-radius: 5px;
+                border: 1px solid #eee;
+                justify-content: space-between;
+            }
+
+            .block-area .icon {
+                width: 28px;
+                height: 28px;
+                margin: 0 15px 0 10px;
+            }
+
+            .block-area .name {
+                font-size: 14px;
+                color: #222;
+            }
+
+            .block-area .arrow {
+                width: 14px;
+                height: 14px;
+                margin-right: 10px;
+            }
+
+        .mui-icon-arrowleft:before {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav" style="background-color: #3955A2;">
+        <a class="mui-icon mui-icon-arrowleft mui-pull-left" href="javascript: history.go(-1);"></a>
+        <h1 class="mui-title" style="color: #fff;">翻钱包</h1>
+    </header>
+    <div class="mui-content">
+        <div class='container'>
+            <div class="info">
+                <span class='num'>0</span>
+                <span class="label">钱包余额  (元)</span>
+            </div>
+            <div class="flex-box row pocket-btn-group">
+                <div class='flex-item'>
+                    <div class='flex-box row justify-content-center'>
+                        <img class='img' src="~/img/pocket/tixian.png" />
+                        <text>提现</text>
+                    </div>
+                </div>
+                <div class='flex-item'>
+                    <div class='flex-box row justify-content-center'>
+                        <img class='img' src="~/img/pocket/gouwu.png" />
+                        <text>购物</text>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 会员卡 -->
+        <div class='block-name'>
+            <text>会员卡</text>
+        </div>
+        <div class='block-area'>
+            <view class='flex-box row'>
+                <view class='flex-box row'>
+                    <img class='icon' src="~/img/pocket/huiyuanka.png" />
+                    <text class='name'>会员卡 (0)</text>
+                </view>
+                <view class='flex-box'>
+                    <img class='arrow' src='~/img/right-arrow.png' />
+                </view>
+            </view>
+        </div>
+        <!-- 优惠券 -->
+        <div class='block-name'>
+            <text>优惠券</text>
+        </div>
+        <div class='block-area'>
+            <div class='flex-box row'>
+                <div class='flex-box row'>
+                    <img class='icon' src="~/img/pocket/youhuiquan.png" />
+                    <text class='name'>优惠券 (0)</text>
+                </div>
+                <div class='flex-box'>
+                    <img class='arrow' src='~/img/right-arrow.png' />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

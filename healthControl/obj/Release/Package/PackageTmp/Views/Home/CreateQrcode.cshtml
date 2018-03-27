@@ -1,0 +1,139 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>品蓝色经典瓶瓶有红包</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="~/Content/public/css/mui.min.css" rel="stylesheet">
+    <link href="~/Content/public/css/public.css" rel="stylesheet">
+    <link href="~/Content/sweetalert-master/sweetalert.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            background-image: url('../../Content/public/images/qrcode_bg_hai.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .scan-num {
+            position: absolute;
+            top: 6px;
+            left: 15px;
+            color: #fff;
+        }
+
+        .rest {
+            position: absolute;
+            top: 30.7vh;
+            left: 46vw;
+            color: #C59F4F;
+        }
+
+        
+
+        .qrcode {
+            position: absolute;
+            bottom: calc(24vh - 40px);
+            left: 50%;
+            width: 24vw;
+            height: 24vw;
+            transform: translateX(-50%);
+            background-color: #efb35f;
+            border-radius: 50%;
+            line-height: 24vw;
+            color: #b36130;
+            text-align: center;
+            font-weight: 600;
+            font-size: 10vw;
+        }
+
+            .qrcode:after {
+                content: '';
+                position: absolute;
+                left: 1.5vw;
+                top: 1.5vw;
+                width: 21vw;
+                height: 21vw;
+                border: 1px solid #b36130;
+                border-radius: 50%;
+            }
+
+        .swal-footer {
+            text-align: center;
+        }
+
+        .swal-modal {
+            margin-top: -10vh;
+        }
+
+        .infinite-im {
+            animation-iteration-count: infinite !important;
+        }
+    </style>
+</head>
+<body>
+    @if (@ViewData["error"].ToString() == "False")
+    {
+        <div class="scan-num">您是第&nbsp;<span>@ViewData["viewer"].ToString()</span>&nbsp;位浏览者</div>
+        <div class="rest">@ViewData["rest"].ToString()</div>
+        <div class="redpacket">
+            <p>恭喜您获得红包</p>
+            <p><span class="amount">@ViewData["amount"].ToString()</span>元</p>
+        </div>
+        <div class="qrcode animated flip infinite-im">拆</div>
+    }
+    <script src="~/Content/js/zepto.min.js"></script>
+    <script src="~/Content/sweetalert-master/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        var backInfo = '@ViewData["error"].ToString()';
+        if (backInfo == "True") {
+            alert("该二维码有误，请重试！");
+        }
+
+        Zepto(function () {
+            $('.qrcode').click(function () {
+                var self = $(this);
+                self.removeClass('infinite-im');
+                $(this).removeClass('infinite-im');
+                var param = {};
+                param.scene_id = '@ViewData["scene_id"].ToString()';
+                $.post('/home/getRedPacket', param, function (data) {
+                    if (data.success) {
+                        swal({
+                            title: "恭喜!",
+                            text: "您已领取到红包!",
+                            type: "success",
+                            confirmButtonColor: "#D0D0D0",
+                            confirmButtonText: "关闭"
+                        }, function (isComfirm) {
+                            if (isComfirm) {
+                                //self.addClass('infinite-im');
+                            }
+                        });
+                    } else {
+                        swal(data.backMsg, "", "warning");
+                        swal({
+                            title: data.backMsg,
+                            text: "",
+                            type: "warning",
+                            confirmButtonColor: "#D0D0D0",
+                            confirmButtonText: "关闭"
+                        }, function (isComfirm) {
+                            if (isComfirm) {
+                                //self.addClass('infinite-im');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
